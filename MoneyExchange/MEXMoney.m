@@ -9,21 +9,40 @@
 #import "MEXMoney.h"
 
 @interface MEXMoney ()
-@property (nonatomic) NSNumber* value;
+@property (nonatomic) NSDecimalNumber* value;
 @end
 
 @implementation MEXMoney
 + (instancetype) fromString:(NSString *)value {
     
     MEXMoney* money = [MEXMoney new];
-    
-    NSNumberFormatter* formatter = [NSNumberFormatter new];
-    formatter.numberStyle = NSNumberFormatterDecimalStyle;
-    
-    money.value = [formatter numberFromString:value];
+    @try {
+        money.value = [NSDecimalNumber decimalNumberWithString:value];
+    } @catch (NSException *exception) {
+     
+    }
     
     return money;
 }
+
++ (instancetype) fromNumber:(NSNumber *)value {
+    MEXMoney* money = [MEXMoney new];
+    money.value = [NSDecimalNumber decimalNumberWithDecimal:[value decimalValue]];
+    return money;
+}
+
++ (instancetype) fromDecimalNumber:(NSDecimalNumber *)value {
+    MEXMoney* money = [MEXMoney new];
+    money.value = value;
+    return money;
+}
+
++ (instancetype) fromDouble:(double)value {
+    NSNumber* number = [NSNumber numberWithDouble:value];
+    
+    return [MEXMoney fromNumber:number];
+}
+
 
 - (NSString*)stringValue {
     if (self.value) {
@@ -32,4 +51,24 @@
     
     return @"";
 }
+
+- (MEXMoney*)multiplyBy:(NSNumber*)factor {
+    NSDecimalNumberHandler *rounder = [NSDecimalNumberHandler decimalNumberHandlerWithRoundingMode:NSRoundPlain
+                                                                                             scale:4
+                                                                                  raiseOnExactness:NO
+                                                                                   raiseOnOverflow:NO
+                                                                                  raiseOnUnderflow:NO
+                                                                               raiseOnDivideByZero:NO];
+    
+    NSDecimalNumber* decimalFactor = [NSDecimalNumber decimalNumberWithDecimal:[factor decimalValue]];
+    
+    if ([self.value isEqualToNumber:[NSDecimalNumber notANumber]] || [decimalFactor isEqualToNumber:[NSDecimalNumber notANumber]]) {
+        return nil;
+    }
+    
+    NSDecimalNumber* result = [self.value decimalNumberByMultiplyingBy:decimalFactor];
+    
+    return [MEXMoney fromDecimalNumber:[result decimalNumberByRoundingAccordingToBehavior:rounder]];
+}
+
 @end

@@ -24,5 +24,11 @@
  */
 + (instancetype) fromInteger:(NSInteger)value withPrecision:(NSInteger)precision;
 
++ (instancetype) fromNumber:(NSNumber*)value;
+
++ (instancetype) fromDecimalNumber:(NSDecimalNumber*)value;
+
 - (NSString*) stringValue;
+
+- (MEXMoney*)multiplyBy:(NSNumber*)factor;
 @end
