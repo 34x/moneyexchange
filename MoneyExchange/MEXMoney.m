@@ -52,7 +52,7 @@
     return @"";
 }
 
-- (MEXMoney*)multiplyBy:(NSNumber*)factor {
+- (NSDecimalNumber*)round:(NSDecimalNumber*)value {
     NSDecimalNumberHandler *rounder = [NSDecimalNumberHandler decimalNumberHandlerWithRoundingMode:NSRoundPlain
                                                                                              scale:4
                                                                                   raiseOnExactness:NO
@@ -60,15 +60,22 @@
                                                                                   raiseOnUnderflow:NO
                                                                                raiseOnDivideByZero:NO];
     
+    return [value decimalNumberByRoundingAccordingToBehavior:rounder];
+}
+
+
+- (MEXMoney*)multiplyBy:(NSNumber*)factor {
+    
     NSDecimalNumber* decimalFactor = [NSDecimalNumber decimalNumberWithDecimal:[factor decimalValue]];
     
-    if ([self.value isEqualToNumber:[NSDecimalNumber notANumber]] || [decimalFactor isEqualToNumber:[NSDecimalNumber notANumber]]) {
+    if ([self.value isEqualToNumber:[NSDecimalNumber notANumber]]
+        || [decimalFactor isEqualToNumber:[NSDecimalNumber notANumber]]) {
         return nil;
     }
     
     NSDecimalNumber* result = [self.value decimalNumberByMultiplyingBy:decimalFactor];
     
-    return [MEXMoney fromDecimalNumber:[result decimalNumberByRoundingAccordingToBehavior:rounder]];
+    return [MEXMoney fromDecimalNumber:[self round:result]];
 }
 
 @end
