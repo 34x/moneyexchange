@@ -11,8 +11,8 @@
 #import "MEXMoney.h"
 
 typedef enum : NSUInteger {
-    MEXExchangeAmountTypeSource,
-    MEXExchangeAmountTypeDestination,
+    MEXExchangeAmountInSourceCurrency,
+    MEXExchangeAmountInDestinationCurrency,
 } MEXExchangeAmountType;
 
 @interface MEXExchange : NSObject

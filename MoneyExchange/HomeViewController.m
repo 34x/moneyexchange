@@ -40,11 +40,11 @@
 
 - (void)exchangeView:(MEXExchangeRowView *)view didChangeValue:(MEXMoney *)value {
     MEXExchangeRowView* target = self.exchangeRowDestination;
-    MEXExchangeAmountType exchangeType = MEXExchangeAmountTypeSource;
+    MEXExchangeAmountType exchangeType = MEXExchangeAmountInSourceCurrency;
     
     if (view == self.exchangeRowDestination) {
         target = self.exchangeRowSource;
-        exchangeType = MEXExchangeAmountTypeDestination;
+        exchangeType = MEXExchangeAmountInDestinationCurrency;
     }
     
     HomeViewController* __weak weakSelf = self;
