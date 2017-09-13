@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		502283F31F6939DB00A966B2 /* MEXUserAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 502283F21F6939DB00A966B2 /* MEXUserAccount.m */; };
+		502283F61F693EBF00A966B2 /* MEXExchange.m in Sources */ = {isa = PBXBuildFile; fileRef = 502283F51F693EBF00A966B2 /* MEXExchange.m */; };
+		502283F91F69403900A966B2 /* MEXMoneyAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 502283F81F69403900A966B2 /* MEXMoneyAccount.m */; };
+		502283FC1F6945B300A966B2 /* MEXMoney.m in Sources */ = {isa = PBXBuildFile; fileRef = 502283FB1F6945B300A966B2 /* MEXMoney.m */; };
+		502283FF1F694FEE00A966B2 /* MEXCurrency.m in Sources */ = {isa = PBXBuildFile; fileRef = 502283FE1F694FEE00A966B2 /* MEXCurrency.m */; };
+		502284051F6963EC00A966B2 /* MEXExchangeRowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 502284041F6963EC00A966B2 /* MEXExchangeRowView.m */; };
 		5084239C1F6920A400DAD1D2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5084239B1F6920A400DAD1D2 /* main.m */; };
 		5084239F1F6920A400DAD1D2 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5084239E1F6920A400DAD1D2 /* AppDelegate.m */; };
 		508423A21F6920A400DAD1D2 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 508423A11F6920A400DAD1D2 /* HomeViewController.m */; };
@@ -16,6 +22,18 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		502283F11F6939DB00A966B2 /* MEXUserAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MEXUserAccount.h; sourceTree = "<group>"; };
+		502283F21F6939DB00A966B2 /* MEXUserAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MEXUserAccount.m; sourceTree = "<group>"; };
+		502283F41F693EBF00A966B2 /* MEXExchange.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MEXExchange.h; sourceTree = "<group>"; };
+		502283F51F693EBF00A966B2 /* MEXExchange.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MEXExchange.m; sourceTree = "<group>"; };
+		502283F71F69403900A966B2 /* MEXMoneyAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MEXMoneyAccount.h; sourceTree = "<group>"; };
+		502283F81F69403900A966B2 /* MEXMoneyAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MEXMoneyAccount.m; sourceTree = "<group>"; };
+		502283FA1F6945B300A966B2 /* MEXMoney.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MEXMoney.h; sourceTree = "<group>"; };
+		502283FB1F6945B300A966B2 /* MEXMoney.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MEXMoney.m; sourceTree = "<group>"; };
+		502283FD1F694FEE00A966B2 /* MEXCurrency.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MEXCurrency.h; sourceTree = "<group>"; };
+		502283FE1F694FEE00A966B2 /* MEXCurrency.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MEXCurrency.m; sourceTree = "<group>"; };
+		502284031F6963EC00A966B2 /* MEXExchangeRowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MEXExchangeRowView.h; sourceTree = "<group>"; };
+		502284041F6963EC00A966B2 /* MEXExchangeRowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MEXExchangeRowView.m; sourceTree = "<group>"; };
 		508423971F6920A400DAD1D2 /* MoneyExchange.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MoneyExchange.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5084239B1F6920A400DAD1D2 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		5084239D1F6920A400DAD1D2 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -60,6 +78,16 @@
 			children = (
 				5084239D1F6920A400DAD1D2 /* AppDelegate.h */,
 				5084239E1F6920A400DAD1D2 /* AppDelegate.m */,
+				502283FD1F694FEE00A966B2 /* MEXCurrency.h */,
+				502283FE1F694FEE00A966B2 /* MEXCurrency.m */,
+				502283F41F693EBF00A966B2 /* MEXExchange.h */,
+				502283F51F693EBF00A966B2 /* MEXExchange.m */,
+				502283FA1F6945B300A966B2 /* MEXMoney.h */,
+				502283FB1F6945B300A966B2 /* MEXMoney.m */,
+				502283F71F69403900A966B2 /* MEXMoneyAccount.h */,
+				502283F81F69403900A966B2 /* MEXMoneyAccount.m */,
+				502283F11F6939DB00A966B2 /* MEXUserAccount.h */,
+				502283F21F6939DB00A966B2 /* MEXUserAccount.m */,
 				508423A01F6920A400DAD1D2 /* HomeViewController.h */,
 				508423A11F6920A400DAD1D2 /* HomeViewController.m */,
 				508423A31F6920A400DAD1D2 /* Main.storyboard */,
@@ -67,6 +95,8 @@
 				508423A81F6920A400DAD1D2 /* LaunchScreen.storyboard */,
 				508423AB1F6920A400DAD1D2 /* Info.plist */,
 				5084239A1F6920A400DAD1D2 /* Supporting Files */,
+				502284031F6963EC00A966B2 /* MEXExchangeRowView.h */,
+				502284041F6963EC00A966B2 /* MEXExchangeRowView.m */,
 			);
 			path = MoneyExchange;
 			sourceTree = "<group>";
@@ -152,7 +182,13 @@
 			files = (
 				508423A21F6920A400DAD1D2 /* HomeViewController.m in Sources */,
 				5084239F1F6920A400DAD1D2 /* AppDelegate.m in Sources */,
+				502284051F6963EC00A966B2 /* MEXExchangeRowView.m in Sources */,
+				502283F31F6939DB00A966B2 /* MEXUserAccount.m in Sources */,
 				5084239C1F6920A400DAD1D2 /* main.m in Sources */,
+				502283F61F693EBF00A966B2 /* MEXExchange.m in Sources */,
+				502283FF1F694FEE00A966B2 /* MEXCurrency.m in Sources */,
+				502283F91F69403900A966B2 /* MEXMoneyAccount.m in Sources */,
+				502283FC1F6945B300A966B2 /* MEXMoney.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -20,11 +20,50 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HnO-jU-SFM" customClass="MEXExchangeRowView">
+                                <rect key="frame" x="0.0" y="28" width="375" height="128"/>
+                                <color key="backgroundColor" red="0.0" green="1" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="128" id="4nZ-pf-ikT"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
+                                        <color key="value" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7NQ-SD-OgU" customClass="MEXExchangeRowView">
+                                <rect key="frame" x="0.0" y="156" width="375" height="128"/>
+                                <color key="backgroundColor" red="0.40000000600000002" green="1" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="128" id="Bpc-9h-cbe"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
+                                        <color key="value" red="0.0" green="0.25098040700000002" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                        </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="7NQ-SD-OgU" firstAttribute="top" secondItem="HnO-jU-SFM" secondAttribute="bottom" id="NFw-Jh-WIo"/>
+                            <constraint firstAttribute="trailing" secondItem="7NQ-SD-OgU" secondAttribute="trailing" id="b3a-ei-tiT"/>
+                            <constraint firstItem="HnO-jU-SFM" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="cuY-Eh-4m0"/>
+                            <constraint firstItem="HnO-jU-SFM" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" id="dA8-du-b04"/>
+                            <constraint firstItem="7NQ-SD-OgU" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="jtq-cU-9xt"/>
+                            <constraint firstAttribute="trailing" secondItem="HnO-jU-SFM" secondAttribute="trailing" id="u8B-ka-Nxi"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="exchangeRowDestination" destination="7NQ-SD-OgU" id="JsZ-5y-xzf"/>
+                        <outlet property="exchangeRowSource" destination="HnO-jU-SFM" id="Yua-2F-F2U"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="136.80000000000001" y="134.48275862068968"/>
         </scene>
     </scenes>
 </document>
