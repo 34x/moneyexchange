@@ -8,13 +8,13 @@
 
 #import <Foundation/Foundation.h>
 #import "MEXExchange.h"
+#import "MEXExchangeResult.h"
 #import "MEXMoneyAccount.h"
 
 @interface MEXUserAccount : NSObject
-+ (instancetype) accountForUser:(NSString*)userID;
 
 - (void)exchange:(MEXExchange*)exchangeObject
-      completion:(void (^)(id result, NSError* error))completion;
+      completion:(void (^)(MEXExchangeResult*, NSError*))completion;
 
 - (void)getMoneyAccountList:(void (^)(NSArray<MEXMoneyAccount*>*, NSError*))completion;
 
