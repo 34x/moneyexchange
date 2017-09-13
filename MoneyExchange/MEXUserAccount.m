@@ -23,8 +23,9 @@
 }
 
 - (void)exchange:(MEXExchange *)exchangeObject completion:(void (^)(MEXExchangeResult*, NSError *))completion {
+    
     MEXExchangeResult* result = [MEXExchangeResult resultWithSourceAmount:exchangeObject.amount
-                                                        destinationAmount:[exchangeObject.amount multiplyBy:@(1.1)]
+                                                        destinationAmount:exchangeObject.result
                                                                  exchange:exchangeObject];
     
     if(completion) {

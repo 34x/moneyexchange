@@ -47,18 +47,18 @@
         exchangeType = MEXExchangeAmountInDestinationCurrency;
     }
     
-    HomeViewController* __weak weakSelf = self;
+    MEXExchangeRate* rate = [MEXExchangeRate rateWith:self.sourceAccount.currency
+                                                 over:self.destinationAccount.currency
+                                            withRatio:@(2.0)];
+    
     [self.userAccount rollback:^(NSError* error) {
         MEXExchange* exchange = [MEXExchange exchangeFrom:self.sourceAccount
                                                        to:self.destinationAccount
                                                    amount:value
+                                                     rate:rate
                                                amountType:exchangeType];
 
-        [weakSelf.userAccount exchange:exchange completion:^(MEXExchangeResult* result, NSError *error) {
-            if(result) {
-                [target setAmount:result.destinationAmount];
-            }
-        }];
+        [target setAmount:exchange.result];
     }];
 
 }
