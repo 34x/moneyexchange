@@ -78,4 +78,17 @@
     return [MEXMoney fromDecimalNumber:[self round:result]];
 }
 
+- (MEXMoney*)divideBy:(NSNumber*)denominator {
+    NSDecimalNumber* decimalDenominator = [NSDecimalNumber decimalNumberWithDecimal:[denominator decimalValue]];
+    
+    if ([self.value isEqualToNumber:[NSDecimalNumber notANumber]]
+        || [decimalDenominator isEqualToNumber:[NSDecimalNumber notANumber]]) {
+        return nil;
+    }
+    
+    NSDecimalNumber* result = [self.value decimalNumberByDividingBy:decimalDenominator];
+    
+    return [MEXMoney fromDecimalNumber:[self round:result]];
+}
+
 @end

@@ -31,4 +31,6 @@
 - (NSString*) stringValue;
 
 - (MEXMoney*)multiplyBy:(NSNumber*)factor;
+- (MEXMoney*)divideBy:(NSNumber*)denominator;
+
 @end
