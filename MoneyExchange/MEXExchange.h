@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "MEXMoneyAccount.h"
+#import "MEXExchangeRate.h"
 #import "MEXMoney.h"
 
 typedef enum : NSUInteger {
@@ -18,13 +19,13 @@ typedef enum : NSUInteger {
 @interface MEXExchange : NSObject
 @property (nonatomic, readonly) MEXExchangeAmountType amountType;
 @property (nonatomic, readonly) MEXMoney* amount;
-
-+ (instancetype) exchangeFrom:(MEXMoneyAccount*)from
-                           to:(MEXMoneyAccount*)to
-                       amount:(MEXMoney*)amount;
+@property (nonatomic, readonly) MEXExchangeRate* rate;
+@property (nonatomic, readonly) MEXMoney* result;
 
 + (instancetype) exchangeFrom:(MEXMoneyAccount*)from
                            to:(MEXMoneyAccount*)to
                        amount:(MEXMoney*)amount
+                     rate:(MEXExchangeRate*)rate
                    amountType:(MEXExchangeAmountType)amountType;
+
 @end
