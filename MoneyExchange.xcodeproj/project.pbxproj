@@ -14,6 +14,7 @@
 		502283FF1F694FEE00A966B2 /* MEXCurrency.m in Sources */ = {isa = PBXBuildFile; fileRef = 502283FE1F694FEE00A966B2 /* MEXCurrency.m */; };
 		502284051F6963EC00A966B2 /* MEXExchangeRowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 502284041F6963EC00A966B2 /* MEXExchangeRowView.m */; };
 		5022840A1F6985EF00A966B2 /* MEXExchangeResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 502284091F6985EF00A966B2 /* MEXExchangeResult.m */; };
+		5022840D1F69BA5700A966B2 /* MEXExchangeRate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5022840C1F69BA5700A966B2 /* MEXExchangeRate.m */; };
 		5084239C1F6920A400DAD1D2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5084239B1F6920A400DAD1D2 /* main.m */; };
 		5084239F1F6920A400DAD1D2 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5084239E1F6920A400DAD1D2 /* AppDelegate.m */; };
 		508423A21F6920A400DAD1D2 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 508423A11F6920A400DAD1D2 /* HomeViewController.m */; };
@@ -37,6 +38,8 @@
 		502284041F6963EC00A966B2 /* MEXExchangeRowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MEXExchangeRowView.m; sourceTree = "<group>"; };
 		502284081F6985EF00A966B2 /* MEXExchangeResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MEXExchangeResult.h; sourceTree = "<group>"; };
 		502284091F6985EF00A966B2 /* MEXExchangeResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MEXExchangeResult.m; sourceTree = "<group>"; };
+		5022840B1F69BA5700A966B2 /* MEXExchangeRate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MEXExchangeRate.h; sourceTree = "<group>"; };
+		5022840C1F69BA5700A966B2 /* MEXExchangeRate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MEXExchangeRate.m; sourceTree = "<group>"; };
 		508423971F6920A400DAD1D2 /* MoneyExchange.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MoneyExchange.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5084239B1F6920A400DAD1D2 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		5084239D1F6920A400DAD1D2 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -85,6 +88,8 @@
 				502283FE1F694FEE00A966B2 /* MEXCurrency.m */,
 				502283F41F693EBF00A966B2 /* MEXExchange.h */,
 				502283F51F693EBF00A966B2 /* MEXExchange.m */,
+				5022840B1F69BA5700A966B2 /* MEXExchangeRate.h */,
+				5022840C1F69BA5700A966B2 /* MEXExchangeRate.m */,
 				502284081F6985EF00A966B2 /* MEXExchangeResult.h */,
 				502284091F6985EF00A966B2 /* MEXExchangeResult.m */,
 				502284031F6963EC00A966B2 /* MEXExchangeRowView.h */,
@@ -186,6 +191,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				508423A21F6920A400DAD1D2 /* HomeViewController.m in Sources */,
+				5022840D1F69BA5700A966B2 /* MEXExchangeRate.m in Sources */,
 				5084239F1F6920A400DAD1D2 /* AppDelegate.m in Sources */,
 				502284051F6963EC00A966B2 /* MEXExchangeRowView.m in Sources */,
 				502283F31F6939DB00A966B2 /* MEXUserAccount.m in Sources */,
