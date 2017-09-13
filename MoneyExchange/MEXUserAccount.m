@@ -10,4 +10,32 @@
 
 @implementation MEXUserAccount
 
+- (void)rollback:(void (^)(NSError *))completion {
+    if (completion) {
+        completion(nil);
+    }
+}
+
+- (void)commit:(void (^)(NSError *))completion {
+    if (completion) {
+        completion(nil);
+    }
+}
+
+- (void)exchange:(MEXExchange *)exchangeObject completion:(void (^)(MEXExchangeResult*, NSError *))completion {
+    MEXExchangeResult* result = [MEXExchangeResult resultWithSourceAmount:exchangeObject.amount
+                                                        destinationAmount:[exchangeObject.amount multiplyBy:@(1.1)]
+                                                                 exchange:exchangeObject];
+    
+    if(completion) {
+        completion(result, nil);
+    }
+}
+
+- (void)getMoneyAccountList:(void (^)(NSArray<MEXMoneyAccount *> *, NSError *))completion {
+    if(completion) {
+        completion(@[], nil);
+    }
+}
+
 @end

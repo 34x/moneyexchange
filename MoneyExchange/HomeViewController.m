@@ -28,6 +28,8 @@
     
     self.exchangeRowSource.delegate = self;
     self.exchangeRowDestination.delegate = self;
+    
+    self.userAccount = [MEXUserAccount new];
 }
 
 
@@ -45,7 +47,20 @@
         exchangeType = MEXExchangeAmountTypeDestination;
     }
     
-    [target setAmount:value];
+    HomeViewController* __weak weakSelf = self;
+    [self.userAccount rollback:^(NSError* error) {
+        MEXExchange* exchange = [MEXExchange exchangeFrom:self.sourceAccount
+                                                       to:self.destinationAccount
+                                                   amount:value
+                                               amountType:exchangeType];
+
+        [weakSelf.userAccount exchange:exchange completion:^(MEXExchangeResult* result, NSError *error) {
+            if(result) {
+                [target setAmount:result.destinationAmount];
+            }
+        }];
+    }];
+
 }
 
 
