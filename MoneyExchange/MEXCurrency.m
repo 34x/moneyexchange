@@ -22,4 +22,12 @@
     return currency;
 }
 
+- (NSString*)description {
+    return [NSString stringWithFormat:@"<MEXCurrency: %@>", self.ISOCode];
+}
+
+- (BOOL)isEqualToCurrency:(MEXCurrency*)other {
+    return [self.ISOCode isEqualToString:other.ISOCode];
+}
+
 @end

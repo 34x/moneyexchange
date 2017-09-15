@@ -75,9 +75,16 @@
 }
 
 -(MEXExchangeRate*) getRateFromCurrency:(MEXCurrency *)from toCurrency:(MEXCurrency *)to {
+    
+    if ([from isEqualToCurrency:to]) {
+        return [MEXExchangeRate rateWith:from over:to withRatio:@(1.0)];
+    }
+    
     if ([from.ISOCode isEqualToString:self.defaultCurrencyCode]) {
         return [self.rates objectForKey:to.ISOCode];
     }
+    
+        
     return nil;
 }
 

@@ -13,4 +13,6 @@
 @property (nonatomic, readonly) NSString* ISOCode;
 
 + (instancetype)currencyWithISOCode:(NSString*)code;
+
+- (BOOL)isEqualToCurrency:(MEXCurrency*)other;
 @end
