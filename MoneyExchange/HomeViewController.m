@@ -9,6 +9,7 @@
 #import "HomeViewController.h"
 #import "MEXExchangeRowView.h"
 #import "MEXUserAccount.h"
+#import "MEXExchangeRateSource.h"
 
 @interface HomeViewController () <MEXExchangeRowViewDelegate>
 @property (weak, nonatomic) IBOutlet MEXExchangeRowView *exchangeRowSource;
@@ -17,6 +18,8 @@
 @property (nonatomic) MEXUserAccount* userAccount;
 @property (nonatomic) MEXMoneyAccount* sourceAccount;
 @property (nonatomic) MEXMoneyAccount* destinationAccount;
+
+@property (nonatomic) MEXExchangeRateSource* rateSource;
 
 @end
 
@@ -30,6 +33,8 @@
     self.exchangeRowDestination.delegate = self;
     
     self.userAccount = [MEXUserAccount new];
+    
+    self.rateSource = [MEXExchangeRateSource new];
 }
 
 
