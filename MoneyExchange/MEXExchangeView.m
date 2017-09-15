@@ -96,11 +96,16 @@
     self.amountField.text = [amount stringValue];
 }
 
+- (MEXMoney*)amount {
+    return [MEXMoney fromString:self.amountField.text];
+}
+
 - (void)setRate:(MEXExchangeRate *)rate {
     self.rateLabel.text = [NSString stringWithFormat:@"1 %@ = %@ %@", rate.numerator.ISOCode, rate.denominator.ISOCode, rate.ratio];
 }
 
 - (void)setAccount:(MEXMoneyAccount *)account {
+    _account = account;
     self.currencyLabel.text = account.currency.ISOCode;
 }
 

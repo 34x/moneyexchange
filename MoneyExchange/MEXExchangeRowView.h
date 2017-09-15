@@ -10,13 +10,13 @@
 #import "MEXMoney.h"
 #import "MEXExchangeRate.h"
 
-@class MEXExchangeRowView, MEXMoneyAccount;
+@class MEXExchangeRowView, MEXMoneyAccount, MEXExchangeView;
 
 @protocol MEXExchangeRowViewDelegate <NSObject>
 
 @optional
 -(void)exchangeView:(MEXExchangeRowView*)view didChangeValue:(MEXMoney*)value;
--(void)exchangeView:(MEXExchangeRowView*)view didChangeAccount:(MEXMoneyAccount*)account;
+-(void)exchangeView:(MEXExchangeRowView*)view didChangeExchangeView:(MEXExchangeView*)exchangeView;
 
 @end
 

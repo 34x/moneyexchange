@@ -93,8 +93,8 @@
     NSInteger page = [self pageFromPath:indexPath];
     [self.pageControl setCurrentPage:page];
     
-    if ([self.delegate respondsToSelector:@selector(exchangeView:didChangeAccount:)]) {
-        [self.delegate exchangeView:self didChangeAccount:[self.accounts objectAtIndex:page]];
+    if ([self.delegate respondsToSelector:@selector(exchangeView:didChangeExchangeView:)]) {
+        [self.delegate exchangeView:self didChangeExchangeView:self.currentAccount];
     }
 }
 @end

@@ -14,8 +14,8 @@
 
 @interface MEXExchangeView : UIView
 @property (nonatomic) void (^valueDidChange)(MEXMoney*);
+@property (nonatomic) MEXMoney* amount;
+@property (nonatomic) MEXMoneyAccount* account;
 
-- (void)setAmount:(MEXMoney*)amount;
 - (void)setRate:(MEXExchangeRate*)rate;
-- (void)setAccount:(MEXMoneyAccount*)account;
 @end
