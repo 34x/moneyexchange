@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "MEXMoney.h"
+#import "MEXExchangeRate.h"
 
 @class MEXExchangeRowView;
 
@@ -21,4 +22,5 @@
 @interface MEXExchangeRowView : UIView
 @property (nonatomic) id<MEXExchangeRowViewDelegate> delegate;
 - (void)setAmount:(MEXMoney*)amount;
+- (void)setRate:(MEXExchangeRate*)rate;
 @end

@@ -10,6 +10,7 @@
 
 @interface MEXExchangeRowView()
 @property (nonatomic) UITextField* amountField;
+@property (nonatomic) UILabel* rateLabel;
 @end
 
 @implementation MEXExchangeRowView
@@ -62,6 +63,11 @@
                                                             multiplier:1 constant:200];
     
     [NSLayoutConstraint activateConstraints:@[centerX, centerY, width]];
+    
+    self.rateLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 200, 21)];
+    self.rateLabel.textColor = [UIColor whiteColor];
+    self.rateLabel.font = [UIFont systemFontOfSize:12.0];
+    [self addSubview:self.rateLabel];
 }
 
 
@@ -75,5 +81,9 @@
 
 - (void)setAmount:(MEXMoney *)amount {
     self.amountField.text = [amount stringValue];
+}
+
+-(void)setRate:(MEXExchangeRate *)rate {
+    self.rateLabel.text = [NSString stringWithFormat:@"1 %@ = %@ %@", rate.numerator.ISOCode, rate.denominator.ISOCode, rate.ratio];
 }
 @end
