@@ -10,17 +10,20 @@
 #import "MEXMoney.h"
 #import "MEXExchangeRate.h"
 
-@class MEXExchangeRowView;
+@class MEXExchangeRowView, MEXMoneyAccount;
 
 @protocol MEXExchangeRowViewDelegate <NSObject>
 
 @optional
 -(void)exchangeView:(MEXExchangeRowView*)view didChangeValue:(MEXMoney*)value;
+-(void)exchangeView:(MEXExchangeRowView*)view didChangeAccount:(MEXMoneyAccount*)account;
 
 @end
 
 @interface MEXExchangeRowView : UIView
+@property (nonatomic) NSArray<MEXMoneyAccount*>* accounts;
 @property (nonatomic) id<MEXExchangeRowViewDelegate> delegate;
+
 - (void)setAmount:(MEXMoney*)amount;
 - (void)setRate:(MEXExchangeRate*)rate;
 @end

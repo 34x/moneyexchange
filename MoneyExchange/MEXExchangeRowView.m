@@ -9,11 +9,11 @@
 #import "MEXExchangeRowView.h"
 #import "InfinityScroll.h"
 #import "MEXExchangeView.h"
+#import "MEXMoneyAccount.h"
 
 @interface MEXExchangeRowView() <InfinityScrollDelegate>
 @property (nonatomic) UIPageControl* pageControl;
 @property (nonatomic) MEXExchangeView* currentAccount;
-@property (nonatomic) NSMutableArray* accountViews;
 @end
 
 @implementation MEXExchangeRowView
@@ -28,19 +28,6 @@
 }
 
 - (void)configureView {
-    
-    self.accountViews = [NSMutableArray new];
-    
-    for (int i = 0; i < 3; i++) {
-        MEXExchangeView* exchangeView = [MEXExchangeView new];
-        MEXExchangeRowView* __weak weakSelf = self;
-        
-        exchangeView.valueDidChange = ^(MEXMoney* amount){
-            [weakSelf amountValueDidChange:amount];
-        };
-        
-        [self.accountViews addObject:exchangeView];
-    }
     
     InfinityScroll* scroll = [[InfinityScroll alloc] initWithFrame:self.bounds];
     scroll.infinityDelegate = self;
@@ -72,13 +59,26 @@
     [self.currentAccount setRate:rate];
 }
 
+- (void)setAccounts:(NSArray<MEXMoneyAccount*>*)accounts {
+    _accounts = accounts;
+    
+    self.pageControl.numberOfPages = accounts.count;
+    
+}
+
 #pragma mark InfinityScroll delegate
 
+-(NSInteger)pageFromPath:(NSIndexPath*)path {
+    return labs(path.section) % self.accounts.count;
+}
+
 - (UIView*) infinityScrollViewForIndexPath:(NSIndexPath *)indexPath {
-    NSInteger page = labs(indexPath.section) % self.accountViews.count;
+    NSInteger page = [self pageFromPath:indexPath];
     
     MEXExchangeView* exchangeView = [[MEXExchangeView alloc] initWithFrame:self.bounds];
     MEXExchangeRowView* __weak weakSelf = self;
+    
+    [exchangeView setAccount:[self.accounts objectAtIndex:page]];
     
     exchangeView.valueDidChange = ^(MEXMoney* amount){
         [weakSelf amountValueDidChange:amount];
@@ -89,5 +89,12 @@
 
 - (void) infinityScrollDidShowView:(UIView *)view atPath:(NSIndexPath *)indexPath {
     self.currentAccount = (MEXExchangeView*)view;
+    
+    NSInteger page = [self pageFromPath:indexPath];
+    [self.pageControl setCurrentPage:page];
+    
+    if ([self.delegate respondsToSelector:@selector(exchangeView:didChangeAccount:)]) {
+        [self.delegate exchangeView:self didChangeAccount:[self.accounts objectAtIndex:page]];
+    }
 }
 @end
