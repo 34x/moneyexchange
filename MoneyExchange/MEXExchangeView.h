@@ -10,9 +10,12 @@
 #import "MEXMoney.h"
 #import "MEXExchangeRate.h"
 
+@class MEXMoneyAccount;
+
 @interface MEXExchangeView : UIView
 @property (nonatomic) void (^valueDidChange)(MEXMoney*);
 
 - (void)setAmount:(MEXMoney*)amount;
 - (void)setRate:(MEXExchangeRate*)rate;
+- (void)setAccount:(MEXMoneyAccount*)account;
 @end

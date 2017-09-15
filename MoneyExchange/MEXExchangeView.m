@@ -8,10 +8,12 @@
 
 #import "MEXExchangeView.h"
 #import "MEXMoney.h"
+#import "MEXMoneyAccount.h"
 
 @interface MEXExchangeView()
 @property (nonatomic) UITextField* amountField;
 @property (nonatomic) UILabel* rateLabel;
+@property (nonatomic) UILabel* currencyLabel;
 @end
 
 @implementation MEXExchangeView
@@ -76,6 +78,11 @@
     self.rateLabel.textColor = [UIColor whiteColor];
     self.rateLabel.font = [UIFont systemFontOfSize:12.0];
     [self addSubview:self.rateLabel];
+    
+    self.currencyLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 22, 200, 21)];
+    self.currencyLabel.textColor = [UIColor whiteColor];
+    self.currencyLabel.font = [UIFont systemFontOfSize:12.0];
+    [self addSubview:self.currencyLabel];
 }
 
 - (void)amountValueDidChange:(UITextField*)field {
@@ -91,6 +98,10 @@
 
 - (void)setRate:(MEXExchangeRate *)rate {
     self.rateLabel.text = [NSString stringWithFormat:@"1 %@ = %@ %@", rate.numerator.ISOCode, rate.denominator.ISOCode, rate.ratio];
+}
+
+- (void)setAccount:(MEXMoneyAccount *)account {
+    self.currencyLabel.text = account.currency.ISOCode;
 }
 
 @end

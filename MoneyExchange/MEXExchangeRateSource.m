@@ -75,7 +75,6 @@
 }
 
 -(MEXExchangeRate*) getRateFromCurrency:(MEXCurrency *)from toCurrency:(MEXCurrency *)to {
-    NSLog(@"Getting rate from %@ to %@\n%@\n%@", from.ISOCode, to.ISOCode, self.rates, self.ratesBuffer);
     if ([from.ISOCode isEqualToString:self.defaultCurrencyCode]) {
         return [self.rates objectForKey:to.ISOCode];
     }
