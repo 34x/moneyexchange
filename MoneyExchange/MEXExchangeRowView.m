@@ -7,10 +7,13 @@
 //
 
 #import "MEXExchangeRowView.h"
+#import "InfinityScroll.h"
+#import "MEXExchangeView.h"
 
-@interface MEXExchangeRowView()
-@property (nonatomic) UITextField* amountField;
-@property (nonatomic) UILabel* rateLabel;
+@interface MEXExchangeRowView() <InfinityScrollDelegate>
+@property (nonatomic) UIPageControl* pageControl;
+@property (nonatomic) MEXExchangeView* currentAccount;
+@property (nonatomic) NSMutableArray* accountViews;
 @end
 
 @implementation MEXExchangeRowView
@@ -26,64 +29,65 @@
 
 - (void)configureView {
     
-    self.amountField = [UITextField new];
-    [self addSubview:self.amountField];
+    self.accountViews = [NSMutableArray new];
+    
+    for (int i = 0; i < 3; i++) {
+        MEXExchangeView* exchangeView = [MEXExchangeView new];
+        MEXExchangeRowView* __weak weakSelf = self;
+        
+        exchangeView.valueDidChange = ^(MEXMoney* amount){
+            [weakSelf amountValueDidChange:amount];
+        };
+        
+        [self.accountViews addObject:exchangeView];
+    }
+    
+    InfinityScroll* scroll = [[InfinityScroll alloc] initWithFrame:self.bounds];
+    scroll.infinityDelegate = self;
+    scroll.prefetchSize = 3;
+    [self addSubview:scroll];
     
     
-    [self.amountField addTarget:self action:@selector(amountValueDidChange:) forControlEvents:UIControlEventEditingChanged];
-    self.amountField.borderStyle = UITextBorderStyleLine;
-    self.amountField.keyboardType = UIKeyboardTypeNumberPad;
-    self.amountField.textColor = [UIColor whiteColor];
-    self.amountField.font = [UIFont systemFontOfSize:24.0];
+    CGFloat pageControlHeight = 16;
+    self.pageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(0, self.frame.size.height - pageControlHeight, self.frame.size.width, pageControlHeight)];
     
-    
-    self.amountField.translatesAutoresizingMaskIntoConstraints = NO;
-    
-    NSLayoutConstraint* centerX = [NSLayoutConstraint constraintWithItem:self.amountField
-                                                               attribute:NSLayoutAttributeCenterX
-                                                               relatedBy:NSLayoutRelationEqual
-                                                                  toItem:self
-                                                               attribute:NSLayoutAttributeCenterX
-                                                              multiplier:1
-                                                                constant:0];
-    
-    NSLayoutConstraint* centerY = [NSLayoutConstraint constraintWithItem:self.amountField
-                                                               attribute:NSLayoutAttributeCenterY
-                                                               relatedBy:NSLayoutRelationEqual
-                                                                  toItem:self
-                                                               attribute:NSLayoutAttributeCenterY
-                                                              multiplier:1
-                                                                constant:0];
-    
-    NSLayoutConstraint* width = [NSLayoutConstraint constraintWithItem:self.amountField
-                                                             attribute:NSLayoutAttributeWidth
-                                                             relatedBy:NSLayoutRelationEqual
-                                                                toItem:nil
-                                                             attribute:NSLayoutAttributeNotAnAttribute
-                                                            multiplier:1 constant:200];
-    
-    [NSLayoutConstraint activateConstraints:@[centerX, centerY, width]];
-    
-    self.rateLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 200, 21)];
-    self.rateLabel.textColor = [UIColor whiteColor];
-    self.rateLabel.font = [UIFont systemFontOfSize:12.0];
-    [self addSubview:self.rateLabel];
+    self.pageControl.numberOfPages = 3;
+    [self.pageControl setCurrentPage: 1];
+    self.pageControl.alpha = 0.6;
+    self.pageControl.enabled = NO;
+    [self addSubview:self.pageControl];
 }
 
-
-- (void)amountValueDidChange:(UITextField*)field {
-    MEXMoney* money = [MEXMoney fromString:field.text];
-    
+- (void)amountValueDidChange:(MEXMoney*)amount {
     if ([self.delegate respondsToSelector:@selector(exchangeView:didChangeValue:)]) {
-        [self.delegate exchangeView:self didChangeValue:money];
+        [self.delegate exchangeView:self didChangeValue:amount];
     }
 }
 
 - (void)setAmount:(MEXMoney *)amount {
-    self.amountField.text = [amount stringValue];
+    [self.currentAccount setAmount:amount];
 }
 
--(void)setRate:(MEXExchangeRate *)rate {
-    self.rateLabel.text = [NSString stringWithFormat:@"1 %@ = %@ %@", rate.numerator.ISOCode, rate.denominator.ISOCode, rate.ratio];
+- (void)setRate:(MEXExchangeRate *)rate {
+    [self.currentAccount setRate:rate];
+}
+
+#pragma mark InfinityScroll delegate
+
+- (UIView*) infinityScrollViewForIndexPath:(NSIndexPath *)indexPath {
+    NSInteger page = labs(indexPath.section) % self.accountViews.count;
+    
+    MEXExchangeView* exchangeView = [[MEXExchangeView alloc] initWithFrame:self.bounds];
+    MEXExchangeRowView* __weak weakSelf = self;
+    
+    exchangeView.valueDidChange = ^(MEXMoney* amount){
+        [weakSelf amountValueDidChange:amount];
+    };
+    
+    return exchangeView;
+}
+
+- (void) infinityScrollDidShowView:(UIView *)view atPath:(NSIndexPath *)indexPath {
+    self.currentAccount = (MEXExchangeView*)view;
 }
 @end
