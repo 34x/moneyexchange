@@ -11,8 +11,10 @@
 #import "MEXMoney.h"
 
 @interface MEXMoneyAccount : NSObject
-@property (nonatomic) MEXCurrency* currency;
+@property (nonatomic, readonly) MEXCurrency* currency;
 @property (nonatomic, readonly) MEXMoney* balance;
+
++(instancetype)accountWithCurrency:(MEXCurrency*)currency andBalance:(MEXMoney*)amount;
 
 -(void)deduct:(MEXMoney*)amount completion:(void (^)(id result, NSError*))completion;
 -(void)add:(MEXMoney*)amount completion:(void (^)(id result, NSError*))completion;
