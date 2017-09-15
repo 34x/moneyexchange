@@ -43,15 +43,15 @@
 }
 
 - (void)updateRates {
-    NSLog(@"??");
     NSURL* url = [NSURL URLWithString:@"https://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml"];
     
     MEXExchangeRateSource* __weak weakSelf = self;
     
-    if (self.currentTask.state == NSURLSessionTaskStateRunning) {
+    if (self.currentTask && self.currentTask.state == NSURLSessionTaskStateRunning) {
         // do not update if we have slow internet. Wait for finishing previous one.
         return;
     }
+    
     self.currentTask = [[NSURLSession sharedSession]
                                   dataTaskWithURL: url
                                   completionHandler:^(
