@@ -14,7 +14,8 @@
 @property (nonatomic) NSTimer* currentTimer;
 @property (nonatomic) NSURLSessionDataTask* currentTask;
 @property (nonatomic) NSMutableDictionary* ratesBuffer;
-
+@property (nonatomic) NSDictionary* rates;
+@property (nonatomic) NSString* defaultCurrencyCode;
 @end
 
 
@@ -23,6 +24,7 @@
     self = [super init];
     if (self) {
         self.updatePeriod = 30.0;
+        self.defaultCurrencyCode = @"EUR";
     }
     return self;
 }
@@ -30,7 +32,6 @@
 - (void)setUpdatePeriod:(NSTimeInterval)updatePeriod {
     _updatePeriod = updatePeriod;
     
-    NSLog(@"? %f", updatePeriod);
     [self.currentTimer invalidate];
     self.currentTimer = [NSTimer scheduledTimerWithTimeInterval:updatePeriod
                                                          target:self
@@ -58,22 +59,30 @@
                                                       NSURLResponse * _Nullable response,
                                                       NSError * _Nullable error) {
                                       
-                                      NSLog(@"Error %@", error);
-                                      NSLog(@"Data %li", data.length);
-                                      
                                       NSXMLParser *parser = [[NSXMLParser alloc] initWithData:data];
                                       parser.delegate = weakSelf;
                                       
                                       weakSelf.ratesBuffer = [NSMutableDictionary new];
                                       
                                       BOOL result = [parser parse];
-                                      NSLog(@"parse result %i", result);
-                                      NSLog(@"Rate: %@", weakSelf.ratesBuffer);
+                                      if(result) {
+                                          weakSelf.rates = [NSDictionary dictionaryWithDictionary:weakSelf.ratesBuffer];
+                                      }
                                       
     }];
     
     [self.currentTask resume];
 }
+
+-(MEXExchangeRate*) getRateFromCurrency:(MEXCurrency *)from toCurrency:(MEXCurrency *)to {
+    NSLog(@"Getting rate from %@ to %@\n%@\n%@", from.ISOCode, to.ISOCode, self.rates, self.ratesBuffer);
+    if ([from.ISOCode isEqualToString:self.defaultCurrencyCode]) {
+        return [self.rates objectForKey:to.ISOCode];
+    }
+    return nil;
+}
+
+#pragma mark XML parser delegate
 
 -(void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary<NSString *,NSString *> *)attributeDict {
     
@@ -88,14 +97,14 @@
     }
     
     
-    MEXCurrency* eur = [MEXCurrency currencyWithISOCode:@"EUR"];
+    MEXCurrency* baseCurrency = [MEXCurrency currencyWithISOCode:self.defaultCurrencyCode];
     MEXCurrency* otherCurrency = [MEXCurrency currencyWithISOCode:currency];
     
     NSNumberFormatter* formatter = [NSNumberFormatter new];
     formatter.numberStyle = NSNumberFormatterDecimalStyle;
     NSNumber* currencyRate = [formatter numberFromString:currencyRateString];
     
-    MEXExchangeRate* rate = [MEXExchangeRate rateWith:eur over:otherCurrency withRatio:currencyRate];
+    MEXExchangeRate* rate = [MEXExchangeRate rateWith:baseCurrency over:otherCurrency withRatio:currencyRate];
     
     [self.ratesBuffer setObject:rate forKey:otherCurrency.ISOCode];
 }

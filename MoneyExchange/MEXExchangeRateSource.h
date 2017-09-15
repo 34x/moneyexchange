@@ -7,7 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "MEXExchangeRate.h"
+#import "MEXCurrency.h"
 
 @interface MEXExchangeRateSource : NSObject
 @property (nonatomic) NSTimeInterval updatePeriod;
+
+- (MEXExchangeRate*) getRateFromCurrency:(MEXCurrency*)from toCurrency:(MEXCurrency*)to;
 @end

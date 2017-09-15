@@ -35,6 +35,12 @@
     self.userAccount = [MEXUserAccount new];
     
     self.rateSource = [MEXExchangeRateSource new];
+    
+    self.sourceAccount = [MEXMoneyAccount new];
+    self.sourceAccount.currency = [MEXCurrency currencyWithISOCode:@"EUR"];
+    
+    self.destinationAccount = [MEXMoneyAccount new];
+    self.destinationAccount.currency = [MEXCurrency currencyWithISOCode:@"GBP"];
 }
 
 
@@ -52,9 +58,15 @@
         exchangeType = MEXExchangeAmountInDestinationCurrency;
     }
     
-    MEXExchangeRate* rate = [MEXExchangeRate rateWith:self.sourceAccount.currency
-                                                 over:self.destinationAccount.currency
-                                            withRatio:@(2.0)];
+    
+    MEXExchangeRate* rate = [self.rateSource getRateFromCurrency:self.sourceAccount.currency
+                                                      toCurrency:self.destinationAccount.currency];
+    NSLog(@"Rate %@", rate);
+    if (!rate) {
+        return;
+    }
+    
+    [self.exchangeRowDestination setRate:rate];
     
     [self.userAccount rollback:^(NSError* error) {
         MEXExchange* exchange = [MEXExchange exchangeFrom:self.sourceAccount
