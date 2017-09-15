@@ -9,7 +9,9 @@
 #import "HomeViewController.h"
 #import "MEXExchangeRowView.h"
 #import "MEXUserAccount.h"
+#import "MEXMoneyAccount.h"
 #import "MEXExchangeRateSource.h"
+
 
 @interface HomeViewController () <MEXExchangeRowViewDelegate>
 @property (weak, nonatomic) IBOutlet MEXExchangeRowView *exchangeRowSource;
@@ -36,11 +38,18 @@
     
     self.rateSource = [MEXExchangeRateSource new];
     
-    self.sourceAccount = [MEXMoneyAccount new];
-    self.sourceAccount.currency = [MEXCurrency currencyWithISOCode:@"EUR"];
+//    self.sourceAccount = [MEXMoneyAccount accountWithCurrency:[MEXCurrency currencyWithISOCode:@"EUR"] andBalance:[MEXMoney fromString:@"100.0"]];
     
-    self.destinationAccount = [MEXMoneyAccount new];
-    self.destinationAccount.currency = [MEXCurrency currencyWithISOCode:@"GBP"];
+//    self.destinationAccount = [MEXMoneyAccount accountWithCurrency:[MEXCurrency currencyWithISOCode:@"GBP"] andBalance:[MEXMoney fromString:@"100.0"]];
+    
+    NSArray* accounts = @[
+                          [MEXMoneyAccount accountWithCurrency:[MEXCurrency currencyWithISOCode:@"EUR"] andBalance:[MEXMoney fromString:@"100.00"]],
+                          [MEXMoneyAccount accountWithCurrency:[MEXCurrency currencyWithISOCode:@"GBP"] andBalance:[MEXMoney fromString:@"100.00"]],
+                          [MEXMoneyAccount accountWithCurrency:[MEXCurrency currencyWithISOCode:@"USD"] andBalance:[MEXMoney fromString:@"100.00"]],
+                          ];
+    
+    self.exchangeRowSource.accounts = accounts;
+    self.exchangeRowDestination.accounts = accounts;
 }
 
 
@@ -77,7 +86,14 @@
 
         [target setAmount:exchange.result];
     }];
+}
 
+- (void)exchangeView:(MEXExchangeRowView *)view didChangeAccount:(MEXMoneyAccount *)account {
+    if (view == self.exchangeRowSource) {
+        self.sourceAccount = account;
+    } else {
+        self.destinationAccount = account;
+    }
 }
 
 
