@@ -36,4 +36,8 @@
     return [amount divideBy:self.ratio];
 }
 
+- (NSString*)description {
+    return [NSString stringWithFormat:@"<MEXExchangeRate: %@ 1 = %@ %@>", self.numerator.ISOCode, self.denominator.ISOCode, self.ratio];
+}
+
 @end
