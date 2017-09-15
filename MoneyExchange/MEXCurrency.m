@@ -8,6 +8,18 @@
 
 #import "MEXCurrency.h"
 
+@interface MEXCurrency()
+@property (nonatomic, readwrite) NSString* ISOCode;
+@end
+
 @implementation MEXCurrency
+
++ (instancetype)currencyWithISOCode:(NSString*)code {
+    MEXCurrency *currency = [MEXCurrency new];
+    
+    currency.ISOCode = code;
+    
+    return currency;
+}
 
 @end
