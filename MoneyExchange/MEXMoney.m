@@ -9,7 +9,7 @@
 #import "MEXMoney.h"
 
 @interface MEXMoney ()
-@property (nonatomic) NSDecimalNumber* value;
+@property (nonatomic, readwrite) NSDecimalNumber* value;
 @end
 
 @implementation MEXMoney
@@ -89,6 +89,14 @@
     NSDecimalNumber* result = [self.value decimalNumberByDividingBy:decimalDenominator];
     
     return [MEXMoney fromDecimalNumber:[self round:result]];
+}
+
+- (MEXMoney*)add:(MEXMoney*)plus {
+    return [MEXMoney fromDecimalNumber:[self.value decimalNumberByAdding:plus.value]];
+}
+
+- (MEXMoney*)subtract:(MEXMoney*)minus {
+    return [MEXMoney fromDecimalNumber:[self.value decimalNumberBySubtracting:minus.value]];
 }
 
 @end

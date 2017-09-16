@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 
 @interface MEXMoney : NSObject
+@property (nonatomic, readonly) NSDecimalNumber* value;
+
 + (instancetype) fromDouble:(double)value;
 
 /*
@@ -32,5 +34,8 @@
 
 - (MEXMoney*)multiplyBy:(NSNumber*)factor;
 - (MEXMoney*)divideBy:(NSNumber*)denominator;
+
+- (MEXMoney*)add:(MEXMoney*)plus;
+- (MEXMoney*)subtract:(MEXMoney*)minus;
 
 @end

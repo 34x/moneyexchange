@@ -25,5 +25,6 @@
 @property (nonatomic) id<MEXExchangeRowViewDelegate> delegate;
 
 - (void)setAmount:(MEXMoney*)amount;
+- (void)setNegativeAmount:(MEXMoney*)amount;
 - (void)setRate:(MEXExchangeRate*)rate;
 @end
