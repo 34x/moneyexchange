@@ -10,7 +10,16 @@
 #import "MEXExchangeRate.h"
 #import "MEXCurrency.h"
 
+@protocol MEXExchangeRateSourceDelegate <NSObject>
+
+@optional
+- (void)rateSourceRatesDidLoad:(NSError*) error;
+
+@end
+
 @interface MEXExchangeRateSource : NSObject
+@property (nonatomic, readonly) BOOL isReady;
+@property (nonatomic) id<MEXExchangeRateSourceDelegate> delegate;
 @property (nonatomic) NSTimeInterval updatePeriod;
 
 - (MEXExchangeRate*) getRateFromCurrency:(MEXCurrency*)from toCurrency:(MEXCurrency*)to;

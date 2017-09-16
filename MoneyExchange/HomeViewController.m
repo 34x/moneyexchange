@@ -45,6 +45,7 @@
     self.userAccount = [MEXUserAccount new];
     
     self.rateSource = [MEXExchangeRateSource new];
+    self.rateSource.delegate = self;
     
     NSArray* accounts = @[
                           [MEXMoneyAccount accountWithCurrency:[MEXCurrency currencyWithISOCode:@"EUR"] andBalance:[MEXMoney fromString:@"100.00"]],
@@ -128,6 +129,21 @@
     self.exchangeRowSource.userInteractionEnabled = enable;
     self.exchangeRowDestination.userInteractionEnabled = enable;
     self.exchangeButton.enabled = enable;
+}
+
+#pragma mark source delegate
+
+- (void)rateSourceRatesDidLoad:(NSError *)error {
+    if (!error) {
+        
+        [self setExchangeEnable:YES];
+        [self.exchangeButton setTitle:NSLocalizedString(@"Exchange", @"Exchange screen - exchange button")
+                             forState:UIControlStateNormal];
+    } else {
+        [self setExchangeEnable:NO];
+        [self.exchangeButton setTitle:NSLocalizedString(@"Error while getting currency rates", @"Exchange screen - exchange button")
+                             forState:UIControlStateNormal];
+    }
 }
 
 @end

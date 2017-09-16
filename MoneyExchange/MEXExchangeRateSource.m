@@ -6,11 +6,13 @@
 //  Copyright © 2017 34x. All rights reserved.
 //
 
+#import <UIKit/UIKit.h>
 #import "MEXExchangeRateSource.h"
 #import "MEXCurrency.h"
 #import "MEXExchangeRate.h"
 
 @interface MEXExchangeRateSource() <NSXMLParserDelegate>
+@property (nonatomic, readwrite) BOOL isReady;
 @property (nonatomic) NSTimer* currentTimer;
 @property (nonatomic) NSURLSessionDataTask* currentTask;
 @property (nonatomic) NSMutableDictionary* ratesBuffer;
@@ -52,6 +54,8 @@
         return;
     }
     
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    
     self.currentTask = [[NSURLSession sharedSession]
                                   dataTaskWithURL: url
                                   completionHandler:^(
@@ -59,15 +63,40 @@
                                                       NSURLResponse * _Nullable response,
                                                       NSError * _Nullable error) {
                                       
+                                      if (error) {
+                                          [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                                              if([weakSelf.delegate respondsToSelector:@selector(rateSourceRatesDidLoad:)]) {
+                                                  [weakSelf.delegate rateSourceRatesDidLoad:error];
+                                              }
+                                              [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+                                          }];
+                                          return;
+                                      }
+                                      
                                       NSXMLParser *parser = [[NSXMLParser alloc] initWithData:data];
                                       parser.delegate = weakSelf;
                                       
                                       weakSelf.ratesBuffer = [NSMutableDictionary new];
                                       
+                                      
                                       BOOL result = [parser parse];
-                                      if(result) {
-                                          weakSelf.rates = [NSDictionary dictionaryWithDictionary:weakSelf.ratesBuffer];
-                                      }
+                                      
+                                      
+                                      [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                                          NSError* parseError;
+                                          if(result) {
+                                              weakSelf.rates = [NSDictionary dictionaryWithDictionary:weakSelf.ratesBuffer];
+                                          } else {
+                                              parseError = [NSError errorWithDomain:@"MEXExchangeSource" code:1 userInfo:nil];
+                                          }
+                                          
+                                          if([weakSelf.delegate respondsToSelector:@selector(rateSourceRatesDidLoad:)]) {
+                                              [weakSelf.delegate rateSourceRatesDidLoad:parseError];
+                                          }
+                                          
+                                          [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+                                      }];
+                                      
                                       
     }];
     
