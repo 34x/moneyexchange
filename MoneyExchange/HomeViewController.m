@@ -20,6 +20,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *exchangeButton;
 @property (weak, nonatomic) IBOutlet UIView *loadingSplash;
 
+@property (nonatomic) MEXExchangeRowView* lastUsedExchangeRow;
+
 @property (nonatomic) MEXExchangeView* sourceView;
 @property (nonatomic) MEXExchangeView* destinationView;
 
@@ -66,7 +68,7 @@
 }
 
 - (void)exchangeView:(MEXExchangeRowView *)view didChangeValue:(MEXMoney *)value {
-    
+    self.lastUsedExchangeRow = view;
     MEXExchangeRowView* target = self.exchangeRowDestination;
     MEXExchangeAmountType exchangeType = MEXExchangeAmountInSourceCurrency;
     
@@ -139,6 +141,16 @@
         [self setExchangeEnable:YES];
         [self.exchangeButton setTitle:NSLocalizedString(@"Exchange", @"Exchange screen - exchange button")
                              forState:UIControlStateNormal];
+        
+        MEXMoney* amount;
+        if (self.lastUsedExchangeRow == self.exchangeRowSource) {
+            amount = self.sourceView.amount;
+        } else {
+            amount = self.destinationView.amount;
+        }
+        
+        [self exchangeView:self.lastUsedExchangeRow didChangeValue:amount];
+        
     } else {
         [self setExchangeEnable:NO];
         [self.exchangeButton setTitle:NSLocalizedString(@"Error while getting currency rates", @"Exchange screen - exchange button")
