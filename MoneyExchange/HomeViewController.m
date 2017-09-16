@@ -77,6 +77,7 @@
                                                       toCurrency:destinationAccount.currency];
     
     if (!rate) {
+        NSLog(@"No exchange rates");
         return;
     }
     

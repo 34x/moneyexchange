@@ -84,8 +84,19 @@
         return [self.rates objectForKey:to.ISOCode];
     }
     
+    if ([to.ISOCode isEqualToString:self.defaultCurrencyCode]) {
+        MEXExchangeRate* reverseExchange = [self.rates objectForKey:from.ISOCode];
+        NSNumber* reverseRatio = [NSNumber numberWithDouble:1.0 / [reverseExchange.ratio doubleValue]];
         
-    return nil;
+        return [MEXExchangeRate rateWith:from over:to withRatio:reverseRatio];
+    }
+    
+    MEXExchangeRate* fromRate = [self.rates objectForKey:from.ISOCode];
+    MEXExchangeRate* toRate = [self.rates objectForKey:to.ISOCode];
+    
+    double ratio = (1 / [fromRate.ratio doubleValue]) * [toRate.ratio doubleValue];
+    
+    return [MEXExchangeRate rateWith:from over:to withRatio:[NSNumber numberWithDouble:ratio]];
 }
 
 #pragma mark XML parser delegate
