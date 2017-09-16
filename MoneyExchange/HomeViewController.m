@@ -14,9 +14,11 @@
 #import "MEXExchangeRateSource.h"
 
 
-@interface HomeViewController () <MEXExchangeRowViewDelegate>
+@interface HomeViewController () <MEXExchangeRowViewDelegate, MEXExchangeRateSourceDelegate>
 @property (weak, nonatomic) IBOutlet MEXExchangeRowView *exchangeRowSource;
 @property (weak, nonatomic) IBOutlet MEXExchangeRowView *exchangeRowDestination;
+@property (weak, nonatomic) IBOutlet UIButton *exchangeButton;
+@property (weak, nonatomic) IBOutlet UIView *loadingSplash;
 
 @property (nonatomic) MEXExchangeView* sourceView;
 @property (nonatomic) MEXExchangeView* destinationView;
@@ -52,6 +54,8 @@
     
     self.exchangeRowSource.accounts = accounts;
     self.exchangeRowDestination.accounts = accounts;
+    
+    [self setExchangeEnable:NO];
 }
 
 
@@ -103,6 +107,27 @@
         self.destinationView = exchangeView;
         [self exchangeView:self.exchangeRowSource didChangeValue:self.sourceView.amount];
     }
+}
+
+- (void)setExchangeEnable:(BOOL)enable {
+    
+    if (self.loadingSplash.isHidden == enable) {
+        return;
+    }
+    
+    self.loadingSplash.alpha = enable ? 0.8 : 0;
+    
+    [self.loadingSplash setHidden:NO];
+    [UIView animateWithDuration:0.1
+                      animations:^{
+                          self.loadingSplash.alpha = enable ? 0 : 0.8;
+                      }
+                      completion:^(BOOL finished) {
+                          [self.loadingSplash setHidden: enable ? YES : NO];
+                      }];
+    self.exchangeRowSource.userInteractionEnabled = enable;
+    self.exchangeRowDestination.userInteractionEnabled = enable;
+    self.exchangeButton.enabled = enable;
 }
 
 @end

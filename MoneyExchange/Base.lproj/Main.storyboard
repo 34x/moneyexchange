@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -45,20 +46,50 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
+                            <view alpha="0.40000000000000002" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8HT-DE-YB4">
+                                <rect key="frame" x="0.0" y="28" width="375" height="256"/>
+                                <subviews>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="Tu0-ul-TAq">
+                                        <rect key="frame" x="169" y="110" width="37" height="37"/>
+                                        <color key="color" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    </activityIndicatorView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="Tu0-ul-TAq" firstAttribute="centerY" secondItem="8HT-DE-YB4" secondAttribute="centerY" id="as8-LC-RyN"/>
+                                    <constraint firstItem="Tu0-ul-TAq" firstAttribute="centerX" secondItem="8HT-DE-YB4" secondAttribute="centerX" id="fDs-yi-Dwh"/>
+                                </constraints>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ddN-cv-hcx">
+                                <rect key="frame" x="16" y="292" width="343" height="42"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="42" id="s0g-iR-sFd"/>
+                                </constraints>
+                                <state key="normal" title="Loading currency rates"/>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="ddN-cv-hcx" firstAttribute="top" secondItem="8HT-DE-YB4" secondAttribute="bottom" constant="8" id="Hb3-Lt-Ny2"/>
                             <constraint firstItem="7NQ-SD-OgU" firstAttribute="top" secondItem="HnO-jU-SFM" secondAttribute="bottom" id="NFw-Jh-WIo"/>
+                            <constraint firstItem="8HT-DE-YB4" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="WrB-8W-FEJ"/>
                             <constraint firstAttribute="trailing" secondItem="7NQ-SD-OgU" secondAttribute="trailing" id="b3a-ei-tiT"/>
                             <constraint firstItem="HnO-jU-SFM" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="cuY-Eh-4m0"/>
                             <constraint firstItem="HnO-jU-SFM" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" id="dA8-du-b04"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="ddN-cv-hcx" secondAttribute="trailing" id="ffp-YC-Hq7"/>
                             <constraint firstItem="7NQ-SD-OgU" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="jtq-cU-9xt"/>
+                            <constraint firstItem="ddN-cv-hcx" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="qRz-e1-57k"/>
+                            <constraint firstItem="8HT-DE-YB4" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" id="sQH-6O-D4Y"/>
                             <constraint firstAttribute="trailing" secondItem="HnO-jU-SFM" secondAttribute="trailing" id="u8B-ka-Nxi"/>
+                            <constraint firstAttribute="trailing" secondItem="8HT-DE-YB4" secondAttribute="trailing" id="uPp-Zq-u98"/>
+                            <constraint firstItem="ddN-cv-hcx" firstAttribute="top" secondItem="7NQ-SD-OgU" secondAttribute="bottom" constant="8" id="vDn-2O-XAq"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="exchangeButton" destination="ddN-cv-hcx" id="wnU-R0-dB6"/>
                         <outlet property="exchangeRowDestination" destination="7NQ-SD-OgU" id="JsZ-5y-xzf"/>
                         <outlet property="exchangeRowSource" destination="HnO-jU-SFM" id="Yua-2F-F2U"/>
+                        <outlet property="loadingSplash" destination="8HT-DE-YB4" id="eR3-Ke-RPg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
