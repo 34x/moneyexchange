@@ -50,25 +50,24 @@
     return [MEXMoney fromNumber:@(0)];
 }
 
-- (NSString*)stringValue {
-    if (self.value) {
-        return [NSString stringWithFormat:@"%@", self.value];
-    }
-    
-    return @"";
-}
-
-- (NSDecimalNumber*)round:(NSDecimalNumber*)value {
++ (NSDecimalNumber*)round:(NSDecimalNumber*)value {
     NSDecimalNumberHandler *rounder = [NSDecimalNumberHandler decimalNumberHandlerWithRoundingMode:NSRoundPlain
                                                                                              scale:4
                                                                                   raiseOnExactness:NO
                                                                                    raiseOnOverflow:NO
                                                                                   raiseOnUnderflow:NO
                                                                                raiseOnDivideByZero:NO];
-    
     return [value decimalNumberByRoundingAccordingToBehavior:rounder];
 }
 
+
+- (NSString*)stringValue {
+    if (self.value) {
+        return [NSString stringWithFormat:@"%@", [MEXMoney round:self.value]];
+    }
+    
+    return @"";
+}
 
 - (MEXMoney*)multiplyBy:(NSNumber*)factor {
     
@@ -81,7 +80,7 @@
     
     NSDecimalNumber* result = [self.value decimalNumberByMultiplyingBy:decimalFactor];
     
-    return [MEXMoney fromDecimalNumber:[self round:result]];
+    return [MEXMoney fromDecimalNumber:[MEXMoney round:result]];
 }
 
 - (MEXMoney*)divideBy:(NSNumber*)denominator {
@@ -94,7 +93,7 @@
     
     NSDecimalNumber* result = [self.value decimalNumberByDividingBy:decimalDenominator];
     
-    return [MEXMoney fromDecimalNumber:[self round:result]];
+    return [MEXMoney fromDecimalNumber:[MEXMoney round:result]];
 }
 
 - (MEXMoney*)add:(MEXMoney*)plus {
@@ -117,4 +116,5 @@
 - (NSComparisonResult)compare:(MEXMoney *)amount {
     return [self.value compare:amount.value];
 }
+
 @end

@@ -24,6 +24,8 @@
 
 + (instancetype) zero;
 
++ (NSDecimalNumber*)round:(NSDecimalNumber*)value;
+
 - (NSString*) stringValue;
 
 - (MEXMoney*)multiplyBy:(NSNumber*)factor;
@@ -34,4 +36,5 @@
 
 - (BOOL)isZero;
 - (NSComparisonResult)compare:(MEXMoney*)amount;
+
 @end
