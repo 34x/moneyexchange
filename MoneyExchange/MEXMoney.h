@@ -31,4 +31,5 @@
 - (MEXMoney*)subtract:(MEXMoney*)minus;
 
 - (BOOL)isZero;
+- (NSComparisonResult)compare:(MEXMoney*)amount;
 @end

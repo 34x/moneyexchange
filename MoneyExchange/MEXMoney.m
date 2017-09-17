@@ -18,7 +18,7 @@
     MEXMoney* money = [MEXMoney new];
     
     money.value = [NSDecimalNumber decimalNumberWithString:value];
-    
+
     return money;
 }
 
@@ -105,4 +105,7 @@
     return [[NSDecimalNumber decimalNumberWithString:@"0"] isEqualToNumber:self.value];
 }
 
+- (NSComparisonResult)compare:(MEXMoney *)amount {
+    return [self.value compare:amount.value];
+}
 @end
