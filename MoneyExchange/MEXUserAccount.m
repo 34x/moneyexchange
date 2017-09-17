@@ -26,27 +26,30 @@ NSString* const MEXUserAccountDomain = @"MEXUserAccountDomain";
 
 - (void)exchange:(MEXExchange *)exchangeObject completion:(void (^)(MEXExchangeResult*, NSError *))completion {
     
+    if (!completion) {
+        completion = ^(MEXExchangeResult* result, NSError* error){};
+    }
+    
     MEXMoneyAccount* source = exchangeObject.fromAccount;
     MEXMoneyAccount* destination = exchangeObject.toAccount;
     
     if(!source) {
-        if(completion) {
-            completion(nil, [self errorWith:MEXUserAccountExchangeNoSource andDescription:@"Source account not provided"]);
-        }
+        completion(nil, [self errorWith:MEXUserAccountExchangeNoSource andDescription:@"Source account not provided"]);
         return;
     }
     
     if(!destination) {
-        if(completion) {
-            completion(nil, [self errorWith:MEXUserAccountExchangeNoDestination andDescription:@"Destination account not provided"]);
-        }
+        completion(nil, [self errorWith:MEXUserAccountExchangeNoDestination andDescription:@"Destination account not provided"]);
         return;
     }
     
     if(!exchangeObject.amount) {
-        if(completion) {
-            completion(nil, [self errorWith:MEXUserAccountExchangeNoAmount andDescription:@"Exchange amount not provided"]);
-        }
+        completion(nil, [self errorWith:MEXUserAccountExchangeNoAmount andDescription:@"Exchange amount not provided"]);
+        return;
+    }
+    
+    if ([exchangeObject.amount isZero]) {
+        completion(nil, [self errorWith:MEXUserAccountExchangeZeroAmount andDescription:@"Add something to exchange"]);
         return;
     }
     
