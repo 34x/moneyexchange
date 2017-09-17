@@ -80,10 +80,11 @@
     NSInteger page = [self pageFromPath:indexPath];
     
     MEXExchangeView* exchangeView = [[MEXExchangeView alloc] initWithFrame:self.bounds];
-    MEXExchangeRowView* __weak weakSelf = self;
+    
     exchangeView.type = self.type;
     [exchangeView setAccount:[self.accounts objectAtIndex:page]];
     
+    MEXExchangeRowView* __weak weakSelf = self;
     exchangeView.valueDidChange = ^(MEXMoney* amount){
         [weakSelf amountValueDidChange:amount];
     };

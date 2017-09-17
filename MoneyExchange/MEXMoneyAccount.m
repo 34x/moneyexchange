@@ -14,11 +14,15 @@
 @end
 
 @implementation MEXMoneyAccount
-+(instancetype)accountWithCurrency:(MEXCurrency*)currency andBalance:(MEXMoney*)amount {
++ (instancetype) accountWithCurrency:(MEXCurrency*)currency andBalance:(MEXMoney*)amount {
     MEXMoneyAccount* account = [MEXMoneyAccount new];
     account.currency = currency;
     account.balance = amount;
     
     return account;
+}
+
+- (NSString*) description {
+    return [NSString stringWithFormat:@"<MEXMoneyAccount: %@, balance: %@>", self.currency.ISOCode, [self.balance stringValue]];
 }
 @end

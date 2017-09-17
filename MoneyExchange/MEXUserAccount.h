@@ -11,6 +11,15 @@
 #import "MEXExchangeResult.h"
 #import "MEXMoneyAccount.h"
 
+FOUNDATION_EXPORT NSString* const MEXUserAccountDomain;
+
+typedef enum : NSUInteger {
+    MEXUserAccountExchangeNoSource,
+    MEXUserAccountExchangeNoDestination,
+    MEXUserAccountExchangeNoAmount,
+    MEXUserAccountExchangeNotEnoughBalance,
+} MEXUserAccountExchangeError;
+
 @interface MEXUserAccount : NSObject
 
 - (void)exchange:(MEXExchange*)exchangeObject
