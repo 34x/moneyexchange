@@ -36,8 +36,8 @@ NSString* const MEXUserAccountDomain = @"MEXUserAccountDomain";
     MEXMoneyAccount* source = exchange.fromAccount;
     MEXMoneyAccount* destination = exchange.toAccount;
     
-    [source subtract:exchange.amount completion:^(id result, NSError *error) {
-        [destination add:exchange.result completion:^(id result, NSError *error) {
+    [source subtract:[exchange targetSubtract] completion:^(id result, NSError *error) {
+        [destination add:[exchange targetAdd] completion:^(id result, NSError *error) {
             if (completion) {
                 completion(nil);
             }
@@ -81,7 +81,7 @@ NSString* const MEXUserAccountDomain = @"MEXUserAccountDomain";
         return;
     }
     
-    NSComparisonResult comparison = [source.balance compare:exchangeObject.amount];
+    NSComparisonResult comparison = [source.balance compare:[exchangeObject targetSubtract]];
     
     if (NSOrderedAscending == comparison) {
         if(completion) {
@@ -91,7 +91,7 @@ NSString* const MEXUserAccountDomain = @"MEXUserAccountDomain";
     }
     
     [self.queue addObject:exchangeObject];
-    
+#warning TODO: that's akwward, need to be changed to something more clear and simple
     MEXExchangeResult* result = [MEXExchangeResult resultWithSourceAmount:exchangeObject.amount
                                                         destinationAmount:exchangeObject.result
                                                                  exchange:exchangeObject];

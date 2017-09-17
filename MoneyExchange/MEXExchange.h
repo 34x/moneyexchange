@@ -30,4 +30,7 @@ typedef enum : NSUInteger {
                      rate:(MEXExchangeRate*)rate
                    amountType:(MEXExchangeAmountType)amountType;
 
+- (MEXMoney*) targetSubtract;
+- (MEXMoney*) targetAdd;
+
 @end

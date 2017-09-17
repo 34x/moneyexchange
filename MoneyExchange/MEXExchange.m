@@ -33,7 +33,7 @@
     exchange.rate = rate;
     
     MEXMoney* exchangedAmount;
-    if (amountType == MEXExchangeAmountInSourceCurrency) {
+    if (MEXExchangeAmountInSourceCurrency == amountType) {
         exchangedAmount = [rate exchangeForward:amount];
     } else {
         exchangedAmount = [rate exchangeBackward:amount];
@@ -50,6 +50,20 @@
             self.toAccount,
             [self.amount stringValue],
             self.rate, MEXExchangeAmountInSourceCurrency == self.amountType ? @"amount in source" : @"amount in destination"];
+}
+
+- (MEXMoney*) targetSubtract {
+    if (MEXExchangeAmountInSourceCurrency == self.amountType) {
+        return self.amount;
+    }
+    return self.result;
+}
+
+- (MEXMoney*)targetAdd {
+    if (MEXExchangeAmountInSourceCurrency == self.amountType) {
+        return self.result;
+    }
+    return self.amount;
 }
 
 @end
