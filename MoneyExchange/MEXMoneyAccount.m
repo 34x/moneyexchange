@@ -25,4 +25,24 @@
 - (NSString*) description {
     return [NSString stringWithFormat:@"<MEXMoneyAccount: %@, balance: %@>", self.currency.ISOCode, [self.balance stringValue]];
 }
+
+- (void) subtract:(MEXMoney *)amount completion:(void (^)(id, NSError *))completion {
+    self.balance = [self.balance subtract:amount];
+    if (completion) {
+        completion(nil, nil);
+    }
+}
+
+- (void) add:(MEXMoney *)amount completion:(void (^)(id, NSError *))completion {
+    self.balance = [self.balance add:amount];
+    if (completion) {
+        completion(nil, nil);
+    }
+}
+
+- (BOOL) isEqualToAccount:(MEXMoneyAccount *)account {
+    // Of cource it's not the way of real checking :)
+    return [self.currency isEqualToCurrency:account.currency] && NSOrderedSame == [self.balance compare:account.balance];
+}
+
 @end

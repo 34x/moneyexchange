@@ -14,9 +14,10 @@
 @property (nonatomic, readonly) MEXCurrency* currency;
 @property (nonatomic, readonly) MEXMoney* balance;
 
-+(instancetype)accountWithCurrency:(MEXCurrency*)currency andBalance:(MEXMoney*)amount;
++ (instancetype) accountWithCurrency:(MEXCurrency*)currency andBalance:(MEXMoney*)amount;
 
--(void)deduct:(MEXMoney*)amount completion:(void (^)(id result, NSError*))completion;
--(void)add:(MEXMoney*)amount completion:(void (^)(id result, NSError*))completion;
+- (void) subtract:(MEXMoney*)amount completion:(void (^)(id result, NSError* error))completion;
+- (void) add:(MEXMoney*)amount completion:(void (^)(id result, NSError* error))completion;
 
+- (BOOL) isEqualToAccount:(MEXMoneyAccount*)account;
 @end
