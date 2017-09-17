@@ -67,6 +67,11 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self.exchangeRowSource becomeFirstResponder];
+}
+
 - (void)exchangeView:(MEXExchangeRowView *)view didChangeValue:(MEXMoney *)value {
     self.lastUsedExchangeRow = view;
     MEXExchangeRowView* target = self.exchangeRowDestination;

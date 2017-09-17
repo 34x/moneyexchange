@@ -63,7 +63,10 @@
     _accounts = accounts;
     
     self.pageControl.numberOfPages = accounts.count;
-    
+}
+
+- (BOOL)becomeFirstResponder {
+    return [self.currentAccount becomeFirstResponder];
 }
 
 #pragma mark InfinityScroll delegate

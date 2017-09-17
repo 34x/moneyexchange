@@ -281,4 +281,7 @@
     self.currentBalanceLabel.text = [account.balance stringValue];
 }
 
+- (BOOL)becomeFirstResponder {
+    return [self.amountField becomeFirstResponder];
+}
 @end
