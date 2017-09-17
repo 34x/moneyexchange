@@ -16,11 +16,8 @@
 + (instancetype) fromString:(NSString *)value {
     
     MEXMoney* money = [MEXMoney new];
-    @try {
-        money.value = [NSDecimalNumber decimalNumberWithString:value];
-    } @catch (NSException *exception) {
-     
-    }
+    
+    money.value = [NSDecimalNumber decimalNumberWithString:value];
     
     return money;
 }
@@ -97,6 +94,15 @@
 
 - (MEXMoney*)subtract:(MEXMoney*)minus {
     return [MEXMoney fromDecimalNumber:[self.value decimalNumberBySubtracting:minus.value]];
+}
+
+
+- (NSString*)description {
+    return [NSString stringWithFormat:@"<MEXMoney: %@>", self.value];
+}
+
+- (BOOL)isZero {
+    return [[NSDecimalNumber decimalNumberWithString:@"0"] isEqualToNumber:self.value];
 }
 
 @end

@@ -38,4 +38,5 @@
 - (MEXMoney*)add:(MEXMoney*)plus;
 - (MEXMoney*)subtract:(MEXMoney*)minus;
 
+- (BOOL)isZero;
 @end
