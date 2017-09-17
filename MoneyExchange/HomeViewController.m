@@ -96,15 +96,17 @@
     }
     
     [self.exchangeRowDestination setRate:rate];
+    MEXExchange* exchange = [MEXExchange exchangeFrom:self.sourceAccount
+                                                   to:self.destinationAccount
+                                               amount:value
+                                                 rate:rate
+                                           amountType:exchangeType];
     
     [self.userAccount rollback:^(NSError* error) {
-        MEXExchange* exchange = [MEXExchange exchangeFrom:self.sourceAccount
-                                                       to:self.destinationAccount
-                                                   amount:value
-                                                     rate:rate
-                                               amountType:exchangeType];
-
-        [target setAmount:exchange.result];
+        [self.userAccount exchange:exchange completion:^(MEXExchangeResult *result, NSError *error) {
+            [target setAmount:exchange.result];
+        }];
+        
     }];
 }
 

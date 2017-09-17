@@ -43,7 +43,7 @@
     
     [self.amountField addTarget:self action:@selector(amountValueDidChange:) forControlEvents:UIControlEventEditingChanged];
     self.amountField.autocorrectionType = UITextAutocorrectionTypeNo;
-    
+    self.amountField.placeholder = @"0";
     self.amountField.textAlignment = NSTextAlignmentCenter;
     self.amountField.borderStyle = UITextBorderStyleNone;
     self.amountField.keyboardType = UIKeyboardTypeNumberPad;
@@ -257,12 +257,29 @@
     if(self.valueDidChange) {
         self.valueDidChange(money);
     }
+    [self setBalancePreview:money];
 }
 
 - (void)setAmount:(MEXMoney *)amount {
+    if (!amount || [amount isZero]) {
+        self.amountField.text = @"";
+        self.resultBalanceLabel.text = @"";
+        return;
+    }
+    
     self.amountField.text = [amount stringValue];
+    [self setBalancePreview:amount];
+}
+
+- (void)setBalancePreview:(MEXMoney*)amount {
     if (self.account && amount) {
-        NSString* result = [NSString stringWithFormat:@" = %@", [[self.account.balance add:amount] stringValue]];
+        MEXMoney* preview;
+        if (MEXExchangeViewTypeSource == self.type) {
+            preview = [self.account.balance subtract:amount];
+        } else {
+            preview = [self.account.balance add:amount];
+        }
+        NSString* result = [NSString stringWithFormat:@" = %@", [preview stringValue]];
         self.resultBalanceLabel.text = result;
     }
 }
@@ -278,7 +295,9 @@
 - (void)setAccount:(MEXMoneyAccount *)account {
     _account = account;
     self.currencyLabel.text = account.currency.ISOCode;
-    self.currentBalanceLabel.text = [account.balance stringValue];
+    
+    NSString* sign = self.type == MEXExchangeViewTypeSource ? @"-" : @"+";
+    self.currentBalanceLabel.text = [NSString stringWithFormat:@"%@ %@", [account.balance stringValue], sign];
 }
 
 - (BOOL)becomeFirstResponder {
