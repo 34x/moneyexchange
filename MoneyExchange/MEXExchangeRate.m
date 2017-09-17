@@ -11,13 +11,13 @@
 @interface MEXExchangeRate ()
 @property (nonatomic, readwrite) MEXCurrency* numerator;
 @property (nonatomic, readwrite) MEXCurrency* denominator;
-@property (nonatomic, readwrite) NSNumber* ratio;
+@property (nonatomic, readwrite) NSDecimalNumber* ratio;
 @end
 
 @implementation MEXExchangeRate
 + (instancetype) rateWith:(MEXCurrency *)numerator
                      over:(MEXCurrency *)denominator
-                withRatio:(NSNumber *)ratio {
+                withRatio:(NSDecimalNumber *)ratio {
     
     MEXExchangeRate* rate = [MEXExchangeRate new];
     rate.numerator = numerator;

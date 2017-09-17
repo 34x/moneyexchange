@@ -13,7 +13,7 @@
 @interface MEXExchangeRate : NSObject
 @property (nonatomic, readonly) MEXCurrency* numerator;
 @property (nonatomic, readonly) MEXCurrency* denominator;
-@property (nonatomic, readonly) NSNumber* ratio;
+@property (nonatomic, readonly) NSDecimalNumber* ratio;
 
 + (instancetype) rateWith:(MEXCurrency*)numerator over:(MEXCurrency*)denominator withRatio:(NSNumber*)ratio;
 

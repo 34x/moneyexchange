@@ -86,6 +86,7 @@
                                           NSError* parseError;
                                           if(result) {
                                               weakSelf.rates = [NSDictionary dictionaryWithDictionary:weakSelf.ratesBuffer];
+                                              NSLog(@"%@", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
                                           } else {
                                               parseError = [NSError errorWithDomain:@"MEXExchangeSource" code:1 userInfo:nil];
                                           }
@@ -123,9 +124,11 @@
     MEXExchangeRate* fromRate = [self.rates objectForKey:from.ISOCode];
     MEXExchangeRate* toRate = [self.rates objectForKey:to.ISOCode];
     
-    double ratio = (1 / [fromRate.ratio doubleValue]) * [toRate.ratio doubleValue];
+    NSDecimalNumber* ratio = [[[NSDecimalNumber decimalNumberWithString:@"1.0"]
+                               decimalNumberByDividingBy:fromRate.ratio]
+                              decimalNumberByMultiplyingBy:toRate.ratio];
     
-    return [MEXExchangeRate rateWith:from over:to withRatio:[NSNumber numberWithDouble:ratio]];
+    return [MEXExchangeRate rateWith:from over:to withRatio:ratio];
 }
 
 #pragma mark XML parser delegate
@@ -142,13 +145,16 @@
         return;
     }
     
-    
     MEXCurrency* baseCurrency = [MEXCurrency currencyWithISOCode:self.defaultCurrencyCode];
     MEXCurrency* otherCurrency = [MEXCurrency currencyWithISOCode:currency];
     
-    NSNumberFormatter* formatter = [NSNumberFormatter new];
-    formatter.numberStyle = NSNumberFormatterDecimalStyle;
-    NSNumber* currencyRate = [formatter numberFromString:currencyRateString];
+    NSDecimalNumber* currencyRate = [NSDecimalNumber decimalNumberWithString:currencyRateString];
+    
+    if ([currencyRate isEqualToNumber:[NSDecimalNumber zero]]) {
+#warning TODO: add appropriate reporting or just silently skip such cases
+        NSLog(@"Currency rate is 0, probably need to check source");
+        return;
+    }
     
     MEXExchangeRate* rate = [MEXExchangeRate rateWith:baseCurrency over:otherCurrency withRatio:currencyRate];
     
