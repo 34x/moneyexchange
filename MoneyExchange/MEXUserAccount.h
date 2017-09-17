@@ -19,6 +19,7 @@ typedef enum : NSUInteger {
     MEXUserAccountExchangeNoAmount,
     MEXUserAccountExchangeZeroAmount,
     MEXUserAccountExchangeNotEnoughBalance,
+    MEXUserAccountExchangeSameAccount,
 } MEXUserAccountExchangeError;
 
 @interface MEXUserAccount : NSObject

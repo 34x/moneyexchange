@@ -53,6 +53,11 @@ NSString* const MEXUserAccountDomain = @"MEXUserAccountDomain";
         return;
     }
     
+    if ([source isEqualToAccount:destination]) {
+        completion(nil, [self errorWith:MEXUserAccountExchangeSameAccount andDescription:@"Exchange between same account not implemented yet"]);
+        return;
+    }
+    
     NSComparisonResult comparison = [source.balance compare:exchangeObject.amount];
     
     if (NSOrderedAscending == comparison) {
