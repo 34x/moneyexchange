@@ -101,13 +101,11 @@
                                                amount:value
                                                  rate:rate
                                            amountType:exchangeType];
-    NSLog(@"Exchange: %@", exchange);
     
     [self.userAccount rollback:^(NSError* rollbackError) {
         [self.userAccount exchange:exchange completion:^(MEXExchangeResult *result, NSError *error) {
             // Just interface update
             [target setAmount:exchange.result];
-            NSLog(@"Error: %@", error);
             if (error) {
                 [self setExchangeEnable:NO andMessage:error.localizedDescription];
                 return;
@@ -169,15 +167,18 @@
 
 - (IBAction)exchangeAction:(id)sender {
     [self.userAccount commit:^(NSError *error) {
-        NSLog(@"Transaction completed");
+        [self resetForm];
     }];
 }
 
 - (IBAction)cancelAction:(id)sender {
     [self.userAccount rollback:^(NSError *error) {
-        [self.exchangeRowSource setAmount:[MEXMoney zero]];
-        [self.exchangeRowDestination setAmount:[MEXMoney zero]];
+        [self resetForm];
     }];
+}
+
+- (void) resetForm {
+    [self exchangeView:self.lastUsedExchangeRow didChangeValue:[MEXMoney zero]];
 }
 
 #pragma mark source delegate
