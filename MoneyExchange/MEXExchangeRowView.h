@@ -12,6 +12,11 @@
 
 @class MEXExchangeRowView, MEXMoneyAccount, MEXExchangeView;
 
+typedef enum : NSUInteger {
+    MEXExchangeViewTypeSource,
+    MEXExchangeViewTypeDestination,
+} MEXExchangeViewType;
+
 @protocol MEXExchangeRowViewDelegate <NSObject>
 
 @optional
@@ -23,8 +28,8 @@
 @interface MEXExchangeRowView : UIView
 @property (nonatomic) NSArray<MEXMoneyAccount*>* accounts;
 @property (nonatomic) id<MEXExchangeRowViewDelegate> delegate;
+@property (nonatomic) MEXExchangeViewType type;
 
 - (void)setAmount:(MEXMoney*)amount;
-- (void)setNegativeAmount:(MEXMoney*)amount;
 - (void)setRate:(MEXExchangeRate*)rate;
 @end

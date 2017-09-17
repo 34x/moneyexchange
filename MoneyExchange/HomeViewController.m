@@ -43,6 +43,8 @@
     
     self.exchangeRowSource.delegate = self;
     self.exchangeRowDestination.delegate = self;
+    self.exchangeRowSource.type = MEXExchangeViewTypeSource;
+    self.exchangeRowDestination.type = MEXExchangeViewTypeDestination;
     
     self.userAccount = [MEXUserAccount new];
     

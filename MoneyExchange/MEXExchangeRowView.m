@@ -28,6 +28,7 @@
 }
 
 - (void)configureView {
+    self.type = MEXExchangeViewTypeSource;
     
     InfinityScroll* scroll = [[InfinityScroll alloc] initWithFrame:self.bounds];
     scroll.infinityDelegate = self;
@@ -80,7 +81,7 @@
     
     MEXExchangeView* exchangeView = [[MEXExchangeView alloc] initWithFrame:self.bounds];
     MEXExchangeRowView* __weak weakSelf = self;
-    
+    exchangeView.type = self.type;
     [exchangeView setAccount:[self.accounts objectAtIndex:page]];
     
     exchangeView.valueDidChange = ^(MEXMoney* amount){

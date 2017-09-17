@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "MEXMoney.h"
 #import "MEXExchangeRate.h"
+#import "MEXExchangeRowView.h"
 
 @class MEXMoneyAccount;
 
@@ -16,6 +17,7 @@
 @property (nonatomic) void (^valueDidChange)(MEXMoney*);
 @property (nonatomic) MEXMoney* amount;
 @property (nonatomic) MEXMoneyAccount* account;
+@property (nonatomic) MEXExchangeViewType type;
 
 - (void)setRate:(MEXExchangeRate*)rate;
 @end
