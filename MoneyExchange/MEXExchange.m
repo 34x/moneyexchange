@@ -13,6 +13,8 @@
 @property (nonatomic, readwrite) MEXMoney* amount;
 @property (nonatomic, readwrite) MEXExchangeRate* rate;
 @property (nonatomic, readwrite) MEXMoney* result;
+@property (nonatomic, readwrite) MEXMoneyAccount* fromAccount;
+@property (nonatomic, readwrite) MEXMoneyAccount* toAccount;
 @end
 
 @implementation MEXExchange
@@ -24,7 +26,8 @@
                   amountType:(MEXExchangeAmountType)amountType {
 
     MEXExchange* exchange = [MEXExchange new];
-    
+    exchange.fromAccount = from;
+    exchange.toAccount = to;
     exchange.amount = amount;
     exchange.amountType = amountType;
     exchange.rate = rate;

@@ -21,6 +21,8 @@ typedef enum : NSUInteger {
 @property (nonatomic, readonly) MEXMoney* amount;
 @property (nonatomic, readonly) MEXExchangeRate* rate;
 @property (nonatomic, readonly) MEXMoney* result;
+@property (nonatomic, readonly) MEXMoneyAccount* fromAccount;
+@property (nonatomic, readonly) MEXMoneyAccount* toAccount;
 
 + (instancetype) exchangeFrom:(MEXMoneyAccount*)from
                            to:(MEXMoneyAccount*)to
