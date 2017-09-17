@@ -220,6 +220,10 @@
     
     [self.view addSubview:skview];
     
+    emitter.physicsBody = [SKPhysicsBody new];
+    SKAction* move = [SKAction moveBy:CGVectorMake(0, 100) duration:0.8];
+    [emitter runAction:move];
+    
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.7 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [UIView animateWithDuration:0.4 animations:^{
             skview.alpha = 0.0;

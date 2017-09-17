@@ -66,7 +66,7 @@ NSString* const AccountBalanceKey = @"account.balance";
         self.amountField = field;
         self.amountField.delegate = self;
     }
-    
+    [field setAdjustsFontSizeToFitWidth:YES];
     [self addSubview:field];
     
     [field addTarget:self action:@selector(amountValueDidChange:) forControlEvents:UIControlEventEditingChanged];
@@ -108,41 +108,44 @@ NSString* const AccountBalanceKey = @"account.balance";
                                                                 toItem:self
                                                              attribute:NSLayoutAttributeLeftMargin
                                                             multiplier:1
-                                                              constant:64];
-    
-    NSLayoutConstraint* borderCenter = [NSLayoutConstraint constraintWithItem:border
-                                                                    attribute:NSLayoutAttributeCenterX
-                                                                    relatedBy:NSLayoutRelationEqual
-                                                                       toItem:self
-                                                                    attribute:NSLayoutAttributeCenterX
-                                                                   multiplier:1
-                                                                     constant:0];
-    
-    NSLayoutConstraint* borderTop = [NSLayoutConstraint constraintWithItem:border
-                                                                 attribute:NSLayoutAttributeTop
-                                                                 relatedBy:NSLayoutRelationEqual
-                                                                    toItem:field
-                                                                 attribute:NSLayoutAttributeBottom
-                                                                multiplier:1
-                                                                  constant:0];
-    
-    NSLayoutConstraint* borderWidth = [NSLayoutConstraint constraintWithItem:border
-                                                                   attribute:NSLayoutAttributeWidth
-                                                                   relatedBy:NSLayoutRelationEqual
-                                                                      toItem:field
-                                                                   attribute:NSLayoutAttributeWidth
-                                                                  multiplier:1
-                                                                    constant:0];
-    
-    NSLayoutConstraint* borderHeight = [NSLayoutConstraint constraintWithItem:border
-                                                                    attribute:NSLayoutAttributeHeight
-                                                                    relatedBy:NSLayoutRelationEqual
-                                                                       toItem:nil
-                                                                    attribute:NSLayoutAttributeNotAnAttribute
-                                                                   multiplier:1
-                                                                     constant:1.2];
-    
-    [NSLayoutConstraint activateConstraints:@[centerX, centerY, width, borderCenter, borderTop, borderWidth, borderHeight]];
+                                                              constant:isFake ? 64 : 82];
+    if (!isFake) {
+        NSLayoutConstraint* borderCenter = [NSLayoutConstraint constraintWithItem:border
+                                                                        attribute:NSLayoutAttributeCenterX
+                                                                        relatedBy:NSLayoutRelationEqual
+                                                                           toItem:self
+                                                                        attribute:NSLayoutAttributeCenterX
+                                                                       multiplier:1
+                                                                         constant:0];
+        
+        NSLayoutConstraint* borderTop = [NSLayoutConstraint constraintWithItem:border
+                                                                     attribute:NSLayoutAttributeTop
+                                                                     relatedBy:NSLayoutRelationEqual
+                                                                        toItem:field
+                                                                     attribute:NSLayoutAttributeBottom
+                                                                    multiplier:1
+                                                                      constant:0];
+        
+        NSLayoutConstraint* borderWidth = [NSLayoutConstraint constraintWithItem:border
+                                                                       attribute:NSLayoutAttributeWidth
+                                                                       relatedBy:NSLayoutRelationEqual
+                                                                          toItem:field
+                                                                       attribute:NSLayoutAttributeWidth
+                                                                      multiplier:1
+                                                                        constant:0];
+        
+        NSLayoutConstraint* borderHeight = [NSLayoutConstraint constraintWithItem:border
+                                                                        attribute:NSLayoutAttributeHeight
+                                                                        relatedBy:NSLayoutRelationEqual
+                                                                           toItem:nil
+                                                                        attribute:NSLayoutAttributeNotAnAttribute
+                                                                       multiplier:1
+                                                                         constant:1.2];
+        
+        [NSLayoutConstraint activateConstraints:@[borderCenter, borderTop, borderWidth, borderHeight]];
+        
+    }
+    [NSLayoutConstraint activateConstraints:@[centerX, centerY, width]];
     
     return field;
 }
