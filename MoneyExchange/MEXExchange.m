@@ -44,4 +44,12 @@
     return exchange;
 }
 
+- (NSString*)description {
+    return [NSString stringWithFormat:@"<MEXExchange: %@ -> %@ with amount %@, rate %@, type '%@'>",
+            self.fromAccount,
+            self.toAccount,
+            [self.amount stringValue],
+            self.rate, MEXExchangeAmountInSourceCurrency == self.amountType ? @"amount in source" : @"amount in destination"];
+}
+
 @end
