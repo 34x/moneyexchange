@@ -11,6 +11,7 @@
 @interface MEXCurrency : NSObject
 /* Currency ISO 4217 code */
 @property (nonatomic, readonly) NSString* ISOCode;
+@property (nonatomic, readonly) NSString* sign;
 
 + (instancetype)currencyWithISOCode:(NSString*)code;
 

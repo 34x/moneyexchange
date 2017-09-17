@@ -178,6 +178,7 @@
 }
 
 - (void) resetForm {
+    [self.lastUsedExchangeRow setAmount:[MEXMoney zero]];
     [self exchangeView:self.lastUsedExchangeRow didChangeValue:[MEXMoney zero]];
 }
 

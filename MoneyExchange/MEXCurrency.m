@@ -30,4 +30,16 @@
     return [self.ISOCode isEqualToString:other.ISOCode];
 }
 
+- (NSString*) sign {
+    if ([@"EUR" isEqualToString:self.ISOCode]) {
+        return @"€";
+    } else if ([@"GBP" isEqualToString:self.ISOCode]) {
+        return @"£";
+    } else if ([@"USD" isEqualToString:self.ISOCode]) {
+        return @"$";
+    }
+    
+    return @"";
+    
+}
 @end

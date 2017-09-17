@@ -12,7 +12,7 @@
 
 NSString* const AccountBalanceKey = @"account.balance";
 
-@interface MEXExchangeView()
+@interface MEXExchangeView() <UITextFieldDelegate>
 @property (nonatomic) UITextField* amountField;
 @property (nonatomic) UITextField* amountFieldFake;
 @property (nonatomic) UILabel* rateLabel;
@@ -64,6 +64,7 @@ NSString* const AccountBalanceKey = @"account.balance";
         field.userInteractionEnabled = NO;
     } else {
         self.amountField = field;
+        self.amountField.delegate = self;
     }
     
     [self addSubview:field];
@@ -102,12 +103,12 @@ NSString* const AccountBalanceKey = @"account.balance";
                                                                 constant:-4];
     
     NSLayoutConstraint* width = [NSLayoutConstraint constraintWithItem:field
-                                                             attribute:NSLayoutAttributeWidth
+                                                             attribute:NSLayoutAttributeLeft
                                                              relatedBy:NSLayoutRelationEqual
-                                                                toItem:nil
-                                                             attribute:NSLayoutAttributeNotAnAttribute
+                                                                toItem:self
+                                                             attribute:NSLayoutAttributeLeftMargin
                                                             multiplier:1
-                                                              constant:120];
+                                                              constant:64];
     
     NSLayoutConstraint* borderCenter = [NSLayoutConstraint constraintWithItem:border
                                                                     attribute:NSLayoutAttributeCenterX
@@ -180,10 +181,10 @@ NSString* const AccountBalanceKey = @"account.balance";
                                                                 constant:0];
     
     NSLayoutConstraint* centerY = [NSLayoutConstraint constraintWithItem:self.amountField
-                                                               attribute:NSLayoutAttributeCenterY
+                                                               attribute:NSLayoutAttributeTop
                                                                relatedBy:NSLayoutRelationEqual
                                                                   toItem:self.currentBalanceLabel
-                                                               attribute:NSLayoutAttributeCenterY
+                                                               attribute:NSLayoutAttributeBottom
                                                               multiplier:1
                                                                 constant:0];
     
@@ -334,8 +335,8 @@ NSString* const AccountBalanceKey = @"account.balance";
 - (void)setAccount:(MEXMoneyAccount *)account {
     _account = account;
     self.currencyLabel.text = account.currency.ISOCode;
-    
-    self.currentBalanceLabel.text = [account.balance stringValue];
+#warning TODO: here should be localized currency representation
+    self.currentBalanceLabel.text = [NSString stringWithFormat:@"%@ %@", account.currency.sign, [account.balance stringValue]];
     
     [self addObserver:self forKeyPath:AccountBalanceKey options:NSKeyValueObservingOptionNew context:nil];
 }
@@ -350,5 +351,11 @@ NSString* const AccountBalanceKey = @"account.balance";
 
 - (void)dealloc {
     [self removeObserver:self forKeyPath:AccountBalanceKey];
+}
+
+#pragma mark Field delegate
+
+- (BOOL) textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    return textField.text.length + string.length < 7;
 }
 @end

@@ -86,7 +86,6 @@
                                           NSError* parseError;
                                           if(result) {
                                               weakSelf.rates = [NSDictionary dictionaryWithDictionary:weakSelf.ratesBuffer];
-                                              NSLog(@"%@", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
                                           } else {
                                               parseError = [NSError errorWithDomain:@"MEXExchangeSource" code:1 userInfo:nil];
                                           }
