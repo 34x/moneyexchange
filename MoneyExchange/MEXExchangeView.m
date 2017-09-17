@@ -10,6 +10,8 @@
 #import "MEXMoney.h"
 #import "MEXMoneyAccount.h"
 
+NSString* const AccountBalanceKey = @"account.balance";
+
 @interface MEXExchangeView()
 @property (nonatomic) UITextField* amountField;
 @property (nonatomic) UITextField* amountFieldFake;
@@ -335,7 +337,7 @@
     
     self.currentBalanceLabel.text = [account.balance stringValue];
     
-    [self addObserver:self forKeyPath:@"account.balance" options:NSKeyValueObservingOptionNew context:nil];
+    [self addObserver:self forKeyPath:AccountBalanceKey options:NSKeyValueObservingOptionNew context:nil];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
@@ -344,5 +346,9 @@
 
 - (BOOL)becomeFirstResponder {
     return [self.amountField becomeFirstResponder];
+}
+
+- (void)dealloc {
+    [self removeObserver:self forKeyPath:AccountBalanceKey];
 }
 @end
