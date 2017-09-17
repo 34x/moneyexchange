@@ -268,20 +268,11 @@
 }
 
 - (void)amountValueDidChange:(UITextField*)field {
-    @try {
-        MEXMoney* money = [MEXMoney fromString:field.text];
-        if(self.valueDidChange) {
-            self.valueDidChange(money);
-        }
-        [self updateUILabelsFor:money];
-    } @catch(NSException *exception) {
-        // we do not need to handle exception here, just update data
-        MEXMoney* zero = [MEXMoney fromNumber:@(0)];
-        [self updateUILabelsFor:zero];
-        if(self.valueDidChange) {
-            self.valueDidChange(zero);
-        }
+    MEXMoney* money = [self amount];
+    if(self.valueDidChange) {
+        self.valueDidChange(money);
     }
+    [self updateUILabelsFor:money];
 }
 
 - (void)setAmount:(MEXMoney *)amount {
@@ -324,7 +315,11 @@
 }
 
 - (MEXMoney*)amount {
-    return [MEXMoney fromString:self.amountField.text];
+    @try {
+        return [MEXMoney fromString:self.amountField.text];
+    } @catch (NSException* exception) {
+        return [MEXMoney zero];
+    }
 }
 
 - (void)setRate:(MEXExchangeRate *)rate {
