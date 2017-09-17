@@ -12,6 +12,7 @@
 
 @interface MEXExchangeView()
 @property (nonatomic) UITextField* amountField;
+@property (nonatomic) UITextField* amountFieldFake;
 @property (nonatomic) UILabel* rateLabel;
 @property (nonatomic) UILabel* currencyLabel;
 @property (nonatomic) UILabel* currentBalanceLabel;
@@ -38,83 +39,8 @@
 
 - (void)configureView {
     
-    self.amountField = [UITextField new];
-    [self addSubview:self.amountField];
-    
-    [self.amountField addTarget:self action:@selector(amountValueDidChange:) forControlEvents:UIControlEventEditingChanged];
-    self.amountField.autocorrectionType = UITextAutocorrectionTypeNo;
-    self.amountField.placeholder = @"0";
-    self.amountField.textAlignment = NSTextAlignmentCenter;
-    self.amountField.borderStyle = UITextBorderStyleNone;
-    self.amountField.keyboardType = UIKeyboardTypeNumberPad;
-    self.amountField.textColor = [UIColor whiteColor];
-    self.amountField.font = [UIFont systemFontOfSize:24.0];
-    
-    self.amountField.borderStyle = UITextBorderStyleNone;
-    self.amountField.translatesAutoresizingMaskIntoConstraints = NO;
-    
-    UIView *border = [UIView new];
-    border.translatesAutoresizingMaskIntoConstraints = NO;
-    border.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.8];
-    [self addSubview:border];
-    
-    NSLayoutConstraint* centerX = [NSLayoutConstraint constraintWithItem:self.amountField
-                                                               attribute:NSLayoutAttributeCenterX
-                                                               relatedBy:NSLayoutRelationEqual
-                                                                  toItem:self
-                                                               attribute:NSLayoutAttributeCenterX
-                                                              multiplier:1
-                                                                constant:0];
-    
-    NSLayoutConstraint* centerY = [NSLayoutConstraint constraintWithItem:self.amountField
-                                                               attribute:NSLayoutAttributeCenterY
-                                                               relatedBy:NSLayoutRelationEqual
-                                                                  toItem:self
-                                                               attribute:NSLayoutAttributeCenterY
-                                                              multiplier:1
-                                                                constant:-4];
-    
-    NSLayoutConstraint* width = [NSLayoutConstraint constraintWithItem:self.amountField
-                                                             attribute:NSLayoutAttributeWidth
-                                                             relatedBy:NSLayoutRelationEqual
-                                                                toItem:nil
-                                                             attribute:NSLayoutAttributeNotAnAttribute
-                                                            multiplier:1
-                                                              constant:120];
-    
-    NSLayoutConstraint* borderCenter = [NSLayoutConstraint constraintWithItem:border
-                                                               attribute:NSLayoutAttributeCenterX
-                                                               relatedBy:NSLayoutRelationEqual
-                                                                  toItem:self
-                                                               attribute:NSLayoutAttributeCenterX
-                                                              multiplier:1
-                                                                constant:0];
-    
-    NSLayoutConstraint* borderTop = [NSLayoutConstraint constraintWithItem:border
-                                                                   attribute:NSLayoutAttributeTop
-                                                                   relatedBy:NSLayoutRelationEqual
-                                                                      toItem:self.amountField
-                                                                   attribute:NSLayoutAttributeBottom
-                                                                  multiplier:1
-                                                                    constant:0];
-    
-    NSLayoutConstraint* borderWidth = [NSLayoutConstraint constraintWithItem:border
-                                                             attribute:NSLayoutAttributeWidth
-                                                             relatedBy:NSLayoutRelationEqual
-                                                                toItem:self.amountField
-                                                             attribute:NSLayoutAttributeWidth
-                                                                  multiplier:1
-                                                                    constant:0];
-    
-    NSLayoutConstraint* borderHeight = [NSLayoutConstraint constraintWithItem:border
-                                                                   attribute:NSLayoutAttributeHeight
-                                                                   relatedBy:NSLayoutRelationEqual
-                                                                      toItem:nil
-                                                                   attribute:NSLayoutAttributeNotAnAttribute
-                                                                  multiplier:1
-                                                                    constant:1.2];
-    
-    [NSLayoutConstraint activateConstraints:@[centerX, centerY, width, borderCenter, borderTop, borderWidth, borderHeight]];
+    [self addAmountFieldFake:YES];
+    [self addAmountFieldFake:NO];
     
     [self addCurrentBalance];
     
@@ -127,6 +53,95 @@
     self.currencyLabel.textColor = [UIColor whiteColor];
     self.currencyLabel.font = [UIFont boldSystemFontOfSize:12.0];
     [self addSubview:self.currencyLabel];
+}
+
+- (UITextField*)addAmountFieldFake:(BOOL)isFake {
+    UITextField* field = [UITextField new];
+    if (isFake) {
+        self.amountFieldFake = field;
+        field.userInteractionEnabled = NO;
+    } else {
+        self.amountField = field;
+    }
+    
+    [self addSubview:field];
+    
+    [field addTarget:self action:@selector(amountValueDidChange:) forControlEvents:UIControlEventEditingChanged];
+    field.autocorrectionType = UITextAutocorrectionTypeNo;
+    field.placeholder = @"0";
+    field.textAlignment = NSTextAlignmentCenter;
+    field.borderStyle = UITextBorderStyleNone;
+    field.keyboardType = UIKeyboardTypeNumberPad;
+    field.textColor = [UIColor whiteColor];
+    field.font = [UIFont systemFontOfSize:24.0];
+    
+    field.borderStyle = UITextBorderStyleNone;
+    field.translatesAutoresizingMaskIntoConstraints = NO;
+    
+    UIView *border = [UIView new];
+    border.translatesAutoresizingMaskIntoConstraints = NO;
+    border.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.8];
+    [self addSubview:border];
+    
+    NSLayoutConstraint* centerX = [NSLayoutConstraint constraintWithItem:field
+                                                               attribute:NSLayoutAttributeCenterX
+                                                               relatedBy:NSLayoutRelationEqual
+                                                                  toItem:self
+                                                               attribute:NSLayoutAttributeCenterX
+                                                              multiplier:1
+                                                                constant:0];
+    
+    NSLayoutConstraint* centerY = [NSLayoutConstraint constraintWithItem:field
+                                                               attribute:NSLayoutAttributeCenterY
+                                                               relatedBy:NSLayoutRelationEqual
+                                                                  toItem:self
+                                                               attribute:NSLayoutAttributeCenterY
+                                                              multiplier:1
+                                                                constant:-4];
+    
+    NSLayoutConstraint* width = [NSLayoutConstraint constraintWithItem:field
+                                                             attribute:NSLayoutAttributeWidth
+                                                             relatedBy:NSLayoutRelationEqual
+                                                                toItem:nil
+                                                             attribute:NSLayoutAttributeNotAnAttribute
+                                                            multiplier:1
+                                                              constant:120];
+    
+    NSLayoutConstraint* borderCenter = [NSLayoutConstraint constraintWithItem:border
+                                                                    attribute:NSLayoutAttributeCenterX
+                                                                    relatedBy:NSLayoutRelationEqual
+                                                                       toItem:self
+                                                                    attribute:NSLayoutAttributeCenterX
+                                                                   multiplier:1
+                                                                     constant:0];
+    
+    NSLayoutConstraint* borderTop = [NSLayoutConstraint constraintWithItem:border
+                                                                 attribute:NSLayoutAttributeTop
+                                                                 relatedBy:NSLayoutRelationEqual
+                                                                    toItem:field
+                                                                 attribute:NSLayoutAttributeBottom
+                                                                multiplier:1
+                                                                  constant:0];
+    
+    NSLayoutConstraint* borderWidth = [NSLayoutConstraint constraintWithItem:border
+                                                                   attribute:NSLayoutAttributeWidth
+                                                                   relatedBy:NSLayoutRelationEqual
+                                                                      toItem:field
+                                                                   attribute:NSLayoutAttributeWidth
+                                                                  multiplier:1
+                                                                    constant:0];
+    
+    NSLayoutConstraint* borderHeight = [NSLayoutConstraint constraintWithItem:border
+                                                                    attribute:NSLayoutAttributeHeight
+                                                                    relatedBy:NSLayoutRelationEqual
+                                                                       toItem:nil
+                                                                    attribute:NSLayoutAttributeNotAnAttribute
+                                                                   multiplier:1
+                                                                     constant:1.2];
+    
+    [NSLayoutConstraint activateConstraints:@[centerX, centerY, width, borderCenter, borderTop, borderWidth, borderHeight]];
+    
+    return field;
 }
 
 - (void)addCurrentBalance {
@@ -264,6 +279,7 @@
     if (!amount || [amount isZero]) {
         self.amountField.text = @"";
         self.resultBalanceLabel.text = @"";
+        self.amountFieldFake.text = @"";
         return;
     }
     
@@ -281,7 +297,22 @@
         }
         NSString* result = [NSString stringWithFormat:@" = %@", [preview stringValue]];
         self.resultBalanceLabel.text = result;
+        
+        NSString* sign = MEXExchangeViewTypeSource == self.type ? @"-   " : @"+   ";
+        
+        NSMutableAttributedString* signText = [[NSMutableAttributedString alloc] initWithString:sign attributes:@{}];
+        
+        NSDictionary<NSAttributedStringKey,id>* hiddenAttributes = @{
+                                                               NSForegroundColorAttributeName: [UIColor colorWithWhite:0 alpha:0],
+                                                               };
+        NSAttributedString* hiddenString = [[NSMutableAttributedString alloc] initWithString:self.amountField.text
+                                                                                   attributes:hiddenAttributes];
+        
+        [signText appendAttributedString:hiddenString];
+        self.amountFieldFake.attributedText = signText;
     }
+    
+    
 }
 
 - (MEXMoney*)amount {
