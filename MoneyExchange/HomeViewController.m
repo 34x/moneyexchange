@@ -167,6 +167,12 @@
     self.exchangeButton.layer.masksToBounds = YES;
 }
 
+- (IBAction)exchangeAction:(id)sender {
+    [self.userAccount commit:^(NSError *error) {
+        NSLog(@"Transaction completed");
+    }];
+}
+
 #pragma mark source delegate
 
 - (void)rateSourceRatesDidLoad:(NSError *)error {

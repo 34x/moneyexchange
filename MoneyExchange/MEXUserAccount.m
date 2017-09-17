@@ -10,18 +10,41 @@
 
 NSString* const MEXUserAccountDomain = @"MEXUserAccountDomain";
 
+@interface MEXUserAccount()
+@property NSMutableArray* queue;
+@end
+
 @implementation MEXUserAccount
 
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        self.queue = [NSMutableArray new];
+    }
+    return self;
+}
+
 - (void)rollback:(void (^)(NSError *))completion {
+    self.queue = [NSMutableArray new];
     if (completion) {
         completion(nil);
     }
 }
 
 - (void)commit:(void (^)(NSError *))completion {
-    if (completion) {
-        completion(nil);
-    }
+    MEXExchange* exchange = [self.queue firstObject];
+    MEXMoneyAccount* source = exchange.fromAccount;
+    MEXMoneyAccount* destination = exchange.toAccount;
+    
+    [source subtract:exchange.amount completion:^(id result, NSError *error) {
+        [destination add:exchange.result completion:^(id result, NSError *error) {
+            if (completion) {
+                completion(nil);
+            }
+        }];
+    }];
+    
+    
 }
 
 - (void)exchange:(MEXExchange *)exchangeObject completion:(void (^)(MEXExchangeResult*, NSError *))completion {
@@ -67,10 +90,11 @@ NSString* const MEXUserAccountDomain = @"MEXUserAccountDomain";
         return;
     }
     
+    [self.queue addObject:exchangeObject];
+    
     MEXExchangeResult* result = [MEXExchangeResult resultWithSourceAmount:exchangeObject.amount
                                                         destinationAmount:exchangeObject.result
                                                                  exchange:exchangeObject];
-    
     if(completion) {
         completion(result, nil);
     }
