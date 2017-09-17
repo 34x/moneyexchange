@@ -173,6 +173,13 @@
     }];
 }
 
+- (IBAction)cancelAction:(id)sender {
+    [self.userAccount rollback:^(NSError *error) {
+        [self.exchangeRowSource setAmount:[MEXMoney zero]];
+        [self.exchangeRowDestination setAmount:[MEXMoney zero]];
+    }];
+}
+
 #pragma mark source delegate
 
 - (void)rateSourceRatesDidLoad:(NSError *)error {
