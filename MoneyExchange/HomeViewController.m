@@ -59,8 +59,8 @@
     
     self.exchangeRowSource.accounts = accounts;
     self.exchangeRowDestination.accounts = accounts;
-    
-    [self setExchangeEnable:NO];
+
+    [self setOverallScreenEnable:NO withMessage:NSLocalizedString(@"Loading rates", @"ExchangeScreen.exchangeButton")];
 }
 
 
@@ -91,7 +91,7 @@
                                                       toCurrency:destinationAccount.currency];
     
     if (!rate) {
-        NSLog(@"No exchange rates");
+        [self setExchangeEnable:NO andMessage:NSLocalizedString(@"No exchange rate", @"ExchangeScreen.exchangeButton")];
         return;
     }
     
@@ -101,13 +101,20 @@
                                                amount:value
                                                  rate:rate
                                            amountType:exchangeType];
+    NSLog(@"Exchange: %@", exchange);
     
-    [self.userAccount rollback:^(NSError* error) {
+    [self.userAccount rollback:^(NSError* rollbackError) {
         [self.userAccount exchange:exchange completion:^(MEXExchangeResult *result, NSError *error) {
+            // Just interface update
+            [target setAmount:exchange.result];
+            NSLog(@"Error: %@", error);
+            if (error) {
+                [self setExchangeEnable:NO andMessage:error.localizedDescription];
+                return;
+            }
             
-            NSLog(@"Errror %@", error);
+            [self setExchangeEnable:YES andMessage:nil];
             
-//            [target setAmount:exchange.result];
         }];
         
     }];
@@ -124,8 +131,7 @@
     }
 }
 
-- (void)setExchangeEnable:(BOOL)enable {
-    
+- (void)setOverallScreenEnable:(BOOL)enable withMessage:(NSString*)message{
     if (self.loadingSplash.isHidden == enable) {
         return;
     }
@@ -134,15 +140,31 @@
     
     [self.loadingSplash setHidden:NO];
     [UIView animateWithDuration:0.1
-                      animations:^{
-                          self.loadingSplash.alpha = enable ? 0 : 0.8;
-                      }
-                      completion:^(BOOL finished) {
-                          [self.loadingSplash setHidden: enable ? YES : NO];
-                      }];
+                     animations:^{
+                         self.loadingSplash.alpha = enable ? 0 : 0.8;
+                     }
+                     completion:^(BOOL finished) {
+                         [self.loadingSplash setHidden: enable ? YES : NO];
+                     }];
     self.exchangeRowSource.userInteractionEnabled = enable;
     self.exchangeRowDestination.userInteractionEnabled = enable;
+    
+    [self setExchangeEnable:enable andMessage:message];
+}
+
+- (void)setExchangeEnable:(BOOL)enable andMessage:(NSString*)message {
+    
+    if (!message) {
+        message = NSLocalizedString(enable ? @"Exchange" : @"Exchange not available", @"ExchangeScreen.exchangeButton");
+    }
+    
     self.exchangeButton.enabled = enable;
+    [self.exchangeButton setTitle:message forState:UIControlStateNormal];
+    
+    self.exchangeButton.layer.borderColor = [self.exchangeButton currentTitleColor].CGColor;
+    self.exchangeButton.layer.borderWidth = 1.0;
+    self.exchangeButton.layer.cornerRadius = 12.0;
+    self.exchangeButton.layer.masksToBounds = YES;
 }
 
 #pragma mark source delegate
@@ -150,9 +172,7 @@
 - (void)rateSourceRatesDidLoad:(NSError *)error {
     if (!error) {
         
-        [self setExchangeEnable:YES];
-        [self.exchangeButton setTitle:NSLocalizedString(@"Exchange", @"Exchange screen - exchange button")
-                             forState:UIControlStateNormal];
+        [self setOverallScreenEnable:YES withMessage:nil];
         
         MEXMoney* amount;
         if (self.lastUsedExchangeRow == self.exchangeRowSource) {
@@ -164,9 +184,7 @@
         [self exchangeView:self.lastUsedExchangeRow didChangeValue:amount];
         
     } else {
-        [self setExchangeEnable:NO];
-        [self.exchangeButton setTitle:NSLocalizedString(@"Error while getting currency rates", @"Exchange screen - exchange button")
-                             forState:UIControlStateNormal];
+        [self setOverallScreenEnable:NO withMessage:NSLocalizedString(@"Error while getting currency rates", @"ExchangeScreen.exchangeButton")];
     }
 }
 
