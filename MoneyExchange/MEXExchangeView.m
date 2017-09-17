@@ -331,6 +331,12 @@
     self.currencyLabel.text = account.currency.ISOCode;
     
     self.currentBalanceLabel.text = [account.balance stringValue];
+    
+    [self addObserver:self forKeyPath:@"account.balance" options:NSKeyValueObservingOptionNew context:nil];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
+    self.currentBalanceLabel.text = [self.account.balance stringValue];
 }
 
 - (BOOL)becomeFirstResponder {
