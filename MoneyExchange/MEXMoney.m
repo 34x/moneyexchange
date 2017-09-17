@@ -40,6 +40,9 @@
     return [MEXMoney fromNumber:number];
 }
 
++ (instancetype) zero {
+    return [MEXMoney fromNumber:@(0)];
+}
 
 - (NSString*)stringValue {
     if (self.value) {

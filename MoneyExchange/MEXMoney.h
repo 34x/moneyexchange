@@ -22,6 +22,8 @@
 
 + (instancetype) fromDecimalNumber:(NSDecimalNumber*)value;
 
++ (instancetype) zero;
+
 - (NSString*) stringValue;
 
 - (MEXMoney*)multiplyBy:(NSNumber*)factor;
