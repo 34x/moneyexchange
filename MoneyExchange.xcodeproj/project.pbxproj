@@ -18,6 +18,7 @@
 		502284101F6A8ED200A966B2 /* MEXExchangeRateSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 5022840F1F6A8ED200A966B2 /* MEXExchangeRateSource.m */; };
 		502284371F6C17CF00A966B2 /* InfinityScroll.m in Sources */ = {isa = PBXBuildFile; fileRef = 502284361F6C17CF00A966B2 /* InfinityScroll.m */; };
 		5022843A1F6C210200A966B2 /* MEXExchangeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 502284391F6C210200A966B2 /* MEXExchangeView.m */; };
+		504F310F1F6ED4F4001DCA27 /* MoneyExchangeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 504F310E1F6ED4F4001DCA27 /* MoneyExchangeTests.m */; };
 		5084239C1F6920A400DAD1D2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5084239B1F6920A400DAD1D2 /* main.m */; };
 		5084239F1F6920A400DAD1D2 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5084239E1F6920A400DAD1D2 /* AppDelegate.m */; };
 		508423A21F6920A400DAD1D2 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 508423A11F6920A400DAD1D2 /* HomeViewController.m */; };
@@ -25,6 +26,16 @@
 		508423A71F6920A400DAD1D2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 508423A61F6920A400DAD1D2 /* Assets.xcassets */; };
 		508423AA1F6920A400DAD1D2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 508423A81F6920A400DAD1D2 /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		504F31111F6ED4F4001DCA27 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5084238F1F6920A400DAD1D2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 508423961F6920A400DAD1D2;
+			remoteInfo = MoneyExchange;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		502283F11F6939DB00A966B2 /* MEXUserAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MEXUserAccount.h; sourceTree = "<group>"; };
@@ -49,6 +60,9 @@
 		502284361F6C17CF00A966B2 /* InfinityScroll.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfinityScroll.m; sourceTree = "<group>"; };
 		502284381F6C210200A966B2 /* MEXExchangeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MEXExchangeView.h; sourceTree = "<group>"; };
 		502284391F6C210200A966B2 /* MEXExchangeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MEXExchangeView.m; sourceTree = "<group>"; };
+		504F310C1F6ED4F4001DCA27 /* MoneyExchangeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MoneyExchangeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		504F310E1F6ED4F4001DCA27 /* MoneyExchangeTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MoneyExchangeTests.m; sourceTree = "<group>"; };
+		504F31101F6ED4F4001DCA27 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		508423971F6920A400DAD1D2 /* MoneyExchange.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MoneyExchange.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5084239B1F6920A400DAD1D2 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		5084239D1F6920A400DAD1D2 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -62,6 +76,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		504F31091F6ED4F4001DCA27 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		508423941F6920A400DAD1D2 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -72,10 +93,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		504F310D1F6ED4F4001DCA27 /* MoneyExchangeTests */ = {
+			isa = PBXGroup;
+			children = (
+				504F310E1F6ED4F4001DCA27 /* MoneyExchangeTests.m */,
+				504F31101F6ED4F4001DCA27 /* Info.plist */,
+			);
+			path = MoneyExchangeTests;
+			sourceTree = "<group>";
+		};
 		5084238E1F6920A400DAD1D2 = {
 			isa = PBXGroup;
 			children = (
 				508423991F6920A400DAD1D2 /* MoneyExchange */,
+				504F310D1F6ED4F4001DCA27 /* MoneyExchangeTests */,
 				508423981F6920A400DAD1D2 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -84,6 +115,7 @@
 			isa = PBXGroup;
 			children = (
 				508423971F6920A400DAD1D2 /* MoneyExchange.app */,
+				504F310C1F6ED4F4001DCA27 /* MoneyExchangeTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -137,6 +169,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		504F310B1F6ED4F4001DCA27 /* MoneyExchangeTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 504F31151F6ED4F4001DCA27 /* Build configuration list for PBXNativeTarget "MoneyExchangeTests" */;
+			buildPhases = (
+				504F31081F6ED4F4001DCA27 /* Sources */,
+				504F31091F6ED4F4001DCA27 /* Frameworks */,
+				504F310A1F6ED4F4001DCA27 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				504F31121F6ED4F4001DCA27 /* PBXTargetDependency */,
+			);
+			name = MoneyExchangeTests;
+			productName = MoneyExchangeTests;
+			productReference = 504F310C1F6ED4F4001DCA27 /* MoneyExchangeTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		508423961F6920A400DAD1D2 /* MoneyExchange */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 508423AE1F6920A400DAD1D2 /* Build configuration list for PBXNativeTarget "MoneyExchange" */;
@@ -163,6 +213,11 @@
 				LastUpgradeCheck = 0830;
 				ORGANIZATIONNAME = 34x;
 				TargetAttributes = {
+					504F310B1F6ED4F4001DCA27 = {
+						CreatedOnToolsVersion = 9.0;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 508423961F6920A400DAD1D2;
+					};
 					508423961F6920A400DAD1D2 = {
 						CreatedOnToolsVersion = 8.3.3;
 						ProvisioningStyle = Automatic;
@@ -183,11 +238,19 @@
 			projectRoot = "";
 			targets = (
 				508423961F6920A400DAD1D2 /* MoneyExchange */,
+				504F310B1F6ED4F4001DCA27 /* MoneyExchangeTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		504F310A1F6ED4F4001DCA27 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		508423951F6920A400DAD1D2 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -201,6 +264,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		504F31081F6ED4F4001DCA27 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				504F310F1F6ED4F4001DCA27 /* MoneyExchangeTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		508423931F6920A400DAD1D2 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -224,6 +295,14 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		504F31121F6ED4F4001DCA27 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 508423961F6920A400DAD1D2 /* MoneyExchange */;
+			targetProxy = 504F31111F6ED4F4001DCA27 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
 		508423A31F6920A400DAD1D2 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
@@ -244,6 +323,56 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		504F31131F6ED4F4001DCA27 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = MoneyExchangeTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = me.34x.MoneyExchangeTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MoneyExchange.app/MoneyExchange";
+			};
+			name = Debug;
+		};
+		504F31141F6ED4F4001DCA27 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = MoneyExchangeTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = me.34x.MoneyExchangeTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MoneyExchange.app/MoneyExchange";
+			};
+			name = Release;
+		};
 		508423AC1F6920A400DAD1D2 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -361,6 +490,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		504F31151F6ED4F4001DCA27 /* Build configuration list for PBXNativeTarget "MoneyExchangeTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				504F31131F6ED4F4001DCA27 /* Debug */,
+				504F31141F6ED4F4001DCA27 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		508423921F6920A400DAD1D2 /* Build configuration list for PBXProject "MoneyExchange" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

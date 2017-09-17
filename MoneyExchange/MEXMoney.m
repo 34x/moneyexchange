@@ -18,7 +18,13 @@
     MEXMoney* money = [MEXMoney new];
     
     money.value = [NSDecimalNumber decimalNumberWithString:value];
-
+    
+    if ([money.value isEqualToNumber:[NSDecimalNumber notANumber]]) {
+        
+        @throw [NSException exceptionWithName:NSInvalidArgumentException
+                                       reason:[NSString stringWithFormat:@"Money string '%@' is parsed to NaN", value] userInfo:nil];
+    }
+    
     return money;
 }
 
