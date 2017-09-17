@@ -268,27 +268,33 @@
 }
 
 - (void)amountValueDidChange:(UITextField*)field {
-    MEXMoney* money = [MEXMoney fromString:field.text];
-    if(self.valueDidChange) {
-        self.valueDidChange(money);
+    @try {
+        MEXMoney* money = [MEXMoney fromString:field.text];
+        if(self.valueDidChange) {
+            self.valueDidChange(money);
+        }
+        [self updateUILabelsFor:money];
+    } @catch(NSException *exception) {
+        // we do not need to handle exception here, just update data
+        MEXMoney* zero = [MEXMoney fromNumber:@(0)];
+        [self updateUILabelsFor:zero];
+        if(self.valueDidChange) {
+            self.valueDidChange(zero);
+        }
     }
-    [self setBalancePreview:money];
 }
 
 - (void)setAmount:(MEXMoney *)amount {
+    [self updateUILabelsFor:amount];
     if (!amount || [amount isZero]) {
-        self.amountField.text = @"";
-        self.resultBalanceLabel.text = @"";
-        self.amountFieldFake.text = @"";
         return;
     }
     
     self.amountField.text = [amount stringValue];
-    [self setBalancePreview:amount];
 }
 
-- (void)setBalancePreview:(MEXMoney*)amount {
-    if (self.account && amount) {
+- (void)updateUILabelsFor:(MEXMoney*)amount {
+    if (self.account && amount && ![amount isZero]) {
         MEXMoney* preview;
         if (MEXExchangeViewTypeSource == self.type) {
             preview = [self.account.balance subtract:amount];
@@ -305,14 +311,16 @@
         NSDictionary<NSAttributedStringKey,id>* hiddenAttributes = @{
                                                                NSForegroundColorAttributeName: [UIColor colorWithWhite:0 alpha:0],
                                                                };
-        NSAttributedString* hiddenString = [[NSMutableAttributedString alloc] initWithString:self.amountField.text
+        NSAttributedString* hiddenString = [[NSMutableAttributedString alloc] initWithString:[amount stringValue]
                                                                                    attributes:hiddenAttributes];
         
         [signText appendAttributedString:hiddenString];
         self.amountFieldFake.attributedText = signText;
+    } else {
+        self.amountField.text = @"";
+        self.resultBalanceLabel.text = @"";
+        self.amountFieldFake.text = @"";
     }
-    
-    
 }
 
 - (MEXMoney*)amount {
@@ -327,8 +335,7 @@
     _account = account;
     self.currencyLabel.text = account.currency.ISOCode;
     
-    NSString* sign = self.type == MEXExchangeViewTypeSource ? @"-" : @"+";
-    self.currentBalanceLabel.text = [NSString stringWithFormat:@"%@ %@", [account.balance stringValue], sign];
+    self.currentBalanceLabel.text = [account.balance stringValue];
 }
 
 - (BOOL)becomeFirstResponder {
