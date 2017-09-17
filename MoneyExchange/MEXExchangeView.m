@@ -323,7 +323,10 @@
 }
 
 - (void)setRate:(MEXExchangeRate *)rate {
-    self.rateLabel.text = [NSString stringWithFormat:@"1 %@ = %@ %@", rate.numerator.ISOCode, rate.denominator.ISOCode, rate.ratio];
+    self.rateLabel.text = [NSString stringWithFormat:@"1 %@ = %@ %@",
+                           rate.numerator.ISOCode,
+                           rate.denominator.ISOCode,
+                           [MEXMoney round:rate.ratio]];
 }
 
 - (void)setAccount:(MEXMoneyAccount *)account {

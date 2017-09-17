@@ -15,7 +15,7 @@
 @property (nonatomic, readonly) MEXCurrency* denominator;
 @property (nonatomic, readonly) NSDecimalNumber* ratio;
 
-+ (instancetype) rateWith:(MEXCurrency*)numerator over:(MEXCurrency*)denominator withRatio:(NSNumber*)ratio;
++ (instancetype) rateWith:(MEXCurrency*)numerator over:(MEXCurrency*)denominator withRatio:(NSDecimalNumber*)ratio;
 
 - (MEXMoney*)exchangeForward:(MEXMoney*)amount;
 - (MEXMoney*)exchangeBackward:(MEXMoney*)amount;

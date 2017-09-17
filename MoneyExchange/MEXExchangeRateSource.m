@@ -106,8 +106,12 @@
 
 -(MEXExchangeRate*) getRateFromCurrency:(MEXCurrency *)from toCurrency:(MEXCurrency *)to {
     
+    if (!from || !to) {
+        return nil;
+    }
+    
     if ([from isEqualToCurrency:to]) {
-        return [MEXExchangeRate rateWith:from over:to withRatio:@(1.0)];
+        return [MEXExchangeRate rateWith:from over:to withRatio:[NSDecimalNumber one]];
     }
     
     if ([from.ISOCode isEqualToString:self.defaultCurrencyCode]) {
@@ -116,7 +120,7 @@
     
     if ([to.ISOCode isEqualToString:self.defaultCurrencyCode]) {
         MEXExchangeRate* reverseExchange = [self.rates objectForKey:from.ISOCode];
-        NSNumber* reverseRatio = [NSNumber numberWithDouble:1.0 / [reverseExchange.ratio doubleValue]];
+        NSDecimalNumber* reverseRatio = [[NSDecimalNumber one] decimalNumberByDividingBy:reverseExchange.ratio];
         
         return [MEXExchangeRate rateWith:from over:to withRatio:reverseRatio];
     }
