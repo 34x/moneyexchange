@@ -77,7 +77,7 @@ NSString* const MEXUserAccountDomain = @"MEXUserAccountDomain";
     }
     
     if ([source isEqualToAccount:destination]) {
-        completion(nil, [self errorWith:MEXUserAccountExchangeSameAccount andDescription:@"Exchange between same account not implemented yet"]);
+        completion(nil, [self errorWith:MEXUserAccountExchangeSameAccount andDescription:@"1 = 1"]);
         return;
     }
     
