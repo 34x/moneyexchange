@@ -12,6 +12,7 @@
 #import "MEXUserAccount.h"
 #import "MEXMoneyAccount.h"
 #import "MEXExchangeRateSource.h"
+#import <SpriteKit/SpriteKit.h>
 
 
 @interface HomeViewController () <MEXExchangeRowViewDelegate, MEXExchangeRateSourceDelegate>
@@ -167,6 +168,7 @@
 
 - (IBAction)exchangeAction:(id)sender {
     [self.userAccount commit:^(NSError *error) {
+//        [self playSuccessAnimation];
         [self resetForm];
     }];
 }
@@ -203,4 +205,27 @@
     }
 }
 
+- (void)playSuccessAnimation {
+    SKView* skview = [[SKView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    skview.backgroundColor = [UIColor colorWithWhite:0 alpha:0];
+    SKScene* scene = [[SKScene alloc] initWithSize:[UIScreen mainScreen].bounds.size];
+    scene.backgroundColor = [UIColor colorWithWhite:0 alpha:0];
+    
+    NSString *emitterPath = [[NSBundle mainBundle] pathForResource:@"Success" ofType:@"sks"];
+    SKEmitterNode *emitter = [NSKeyedUnarchiver unarchiveObjectWithFile:emitterPath];
+    emitter.position = [skview convertPoint:self.exchangeRowDestination.center toScene:scene];
+    [scene addChild:emitter];
+    [skview presentScene:scene];
+    skview.center = self.exchangeButton.center;
+    
+    [self.view addSubview:skview];
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.7 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [UIView animateWithDuration:0.4 animations:^{
+            skview.alpha = 0.0;
+        } completion:^(BOOL finished) {
+            [skview removeFromSuperview];
+        }];
+    });
+}
 @end

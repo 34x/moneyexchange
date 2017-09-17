@@ -25,6 +25,8 @@
 		508423A51F6920A400DAD1D2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 508423A31F6920A400DAD1D2 /* Main.storyboard */; };
 		508423A71F6920A400DAD1D2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 508423A61F6920A400DAD1D2 /* Assets.xcassets */; };
 		508423AA1F6920A400DAD1D2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 508423A81F6920A400DAD1D2 /* LaunchScreen.storyboard */; };
+		50DFF5B51F6F1BC2008D619C /* Success.sks in Resources */ = {isa = PBXBuildFile; fileRef = 50DFF5B31F6F1BC2008D619C /* Success.sks */; };
+		50DFF5B61F6F1BC2008D619C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 50DFF5B41F6F1BC2008D619C /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,6 +75,8 @@
 		508423A61F6920A400DAD1D2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		508423A91F6920A400DAD1D2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		508423AB1F6920A400DAD1D2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		50DFF5B31F6F1BC2008D619C /* Success.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Success.sks; sourceTree = "<group>"; };
+		50DFF5B41F6F1BC2008D619C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +109,7 @@
 		5084238E1F6920A400DAD1D2 = {
 			isa = PBXGroup;
 			children = (
+				50DFF5B41F6F1BC2008D619C /* Assets.xcassets */,
 				508423991F6920A400DAD1D2 /* MoneyExchange */,
 				504F310D1F6ED4F4001DCA27 /* MoneyExchangeTests */,
 				508423981F6920A400DAD1D2 /* Products */,
@@ -123,6 +128,7 @@
 		508423991F6920A400DAD1D2 /* MoneyExchange */ = {
 			isa = PBXGroup;
 			children = (
+				50DFF5B31F6F1BC2008D619C /* Success.sks */,
 				5084239D1F6920A400DAD1D2 /* AppDelegate.h */,
 				5084239E1F6920A400DAD1D2 /* AppDelegate.m */,
 				502284351F6C17CF00A966B2 /* InfinityScroll.h */,
@@ -257,6 +263,8 @@
 			files = (
 				508423AA1F6920A400DAD1D2 /* LaunchScreen.storyboard in Resources */,
 				508423A71F6920A400DAD1D2 /* Assets.xcassets in Resources */,
+				50DFF5B51F6F1BC2008D619C /* Success.sks in Resources */,
+				50DFF5B61F6F1BC2008D619C /* Assets.xcassets in Resources */,
 				508423A51F6920A400DAD1D2 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
