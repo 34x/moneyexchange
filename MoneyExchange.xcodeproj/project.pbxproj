@@ -19,7 +19,7 @@
 		502284371F6C17CF00A966B2 /* InfinityScroll.m in Sources */ = {isa = PBXBuildFile; fileRef = 502284361F6C17CF00A966B2 /* InfinityScroll.m */; };
 		5022843A1F6C210200A966B2 /* MEXExchangeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 502284391F6C210200A966B2 /* MEXExchangeView.m */; };
 		504F310F1F6ED4F4001DCA27 /* MoneyExchangeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 504F310E1F6ED4F4001DCA27 /* MoneyExchangeTests.m */; };
-		5070CC361F6FB80E00CC74A9 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 5070CC351F6FB80E00CC74A9 /* README.md */; };
+		5070CC381F6FB8E000CC74A9 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 5070CC371F6FB8E000CC74A9 /* README.md */; };
 		5084239C1F6920A400DAD1D2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5084239B1F6920A400DAD1D2 /* main.m */; };
 		5084239F1F6920A400DAD1D2 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5084239E1F6920A400DAD1D2 /* AppDelegate.m */; };
 		508423A21F6920A400DAD1D2 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 508423A11F6920A400DAD1D2 /* HomeViewController.m */; };
@@ -66,7 +66,7 @@
 		504F310C1F6ED4F4001DCA27 /* MoneyExchangeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MoneyExchangeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		504F310E1F6ED4F4001DCA27 /* MoneyExchangeTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MoneyExchangeTests.m; sourceTree = "<group>"; };
 		504F31101F6ED4F4001DCA27 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		5070CC351F6FB80E00CC74A9 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		5070CC371F6FB8E000CC74A9 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
 		508423971F6920A400DAD1D2 /* MoneyExchange.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MoneyExchange.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5084239B1F6920A400DAD1D2 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		5084239D1F6920A400DAD1D2 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -130,6 +130,7 @@
 		508423991F6920A400DAD1D2 /* MoneyExchange */ = {
 			isa = PBXGroup;
 			children = (
+				5070CC371F6FB8E000CC74A9 /* README.md */,
 				50DFF5B31F6F1BC2008D619C /* Success.sks */,
 				5084239D1F6920A400DAD1D2 /* AppDelegate.h */,
 				5084239E1F6920A400DAD1D2 /* AppDelegate.m */,
@@ -162,7 +163,6 @@
 				508423A81F6920A400DAD1D2 /* LaunchScreen.storyboard */,
 				508423AB1F6920A400DAD1D2 /* Info.plist */,
 				5084239A1F6920A400DAD1D2 /* Supporting Files */,
-				5070CC351F6FB80E00CC74A9 /* README.md */,
 			);
 			path = MoneyExchange;
 			sourceTree = "<group>";
@@ -264,7 +264,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5070CC361F6FB80E00CC74A9 /* README.md in Resources */,
+				5070CC381F6FB8E000CC74A9 /* README.md in Resources */,
 				508423AA1F6920A400DAD1D2 /* LaunchScreen.storyboard in Resources */,
 				508423A71F6920A400DAD1D2 /* Assets.xcassets in Resources */,
 				50DFF5B51F6F1BC2008D619C /* Success.sks in Resources */,
