@@ -55,7 +55,8 @@
     }
     
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-    
+    [[NSURLCache sharedURLCache] setDiskCapacity:0];
+    [[NSURLCache sharedURLCache] setMemoryCapacity:0];
     self.currentTask = [[NSURLSession sharedSession]
                                   dataTaskWithURL: url
                                   completionHandler:^(
