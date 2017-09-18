@@ -123,11 +123,16 @@
 - (void)exchangeView:(MEXExchangeRowView *)view didChangeExchangeView:(MEXExchangeView *)exchangeView {
     if (view == self.exchangeRowSource) {
         self.sourceView = exchangeView;
-        [self exchangeView:self.exchangeRowDestination didChangeValue:self.destinationView.amount];
     } else {
         self.destinationView = exchangeView;
-        [self exchangeView:self.exchangeRowSource didChangeValue:self.sourceView.amount];
     }
+    
+    if (self.lastUsedExchangeRow == self.exchangeRowSource) {
+        [self exchangeView:self.lastUsedExchangeRow didChangeValue:self.sourceView.amount];
+    } else {
+        [self exchangeView:self.lastUsedExchangeRow didChangeValue:self.destinationView.amount];
+    }
+    
 }
 
 - (void)setOverallScreenEnable:(BOOL)enable withMessage:(NSString*)message{

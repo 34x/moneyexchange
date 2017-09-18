@@ -70,6 +70,10 @@
     return [self.currentAccount becomeFirstResponder];
 }
 
+- (BOOL)isFirstResponder {
+    return self.currentAccount.isFirstResponder;
+}
+
 #pragma mark InfinityScroll delegate
 
 -(NSInteger)pageFromPath:(NSIndexPath*)path {
@@ -93,7 +97,15 @@
 }
 
 - (void) infinityScrollDidShowView:(UIView *)view atPath:(NSIndexPath *)indexPath {
-    self.currentAccount = (MEXExchangeView*)view;
+    MEXExchangeView* exchangeView = (MEXExchangeView*)view;
+    // Keep input focus for the same row while changing accounts
+    // and keep the same amount
+    if(self.currentAccount.isFirstResponder) {
+        [view becomeFirstResponder];
+        [exchangeView setAmount:self.currentAccount.amount];
+    }
+    
+    self.currentAccount = exchangeView;
     
     NSInteger page = [self pageFromPath:indexPath];
     [self.pageControl setCurrentPage:page];

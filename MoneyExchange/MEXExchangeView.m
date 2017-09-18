@@ -352,6 +352,10 @@ NSString* const AccountBalanceKey = @"account.balance";
     return [self.amountField becomeFirstResponder];
 }
 
+- (BOOL)isFirstResponder {
+    return self.amountField.isFirstResponder;
+}
+
 - (void)dealloc {
     [self removeObserver:self forKeyPath:AccountBalanceKey];
 }
@@ -359,6 +363,14 @@ NSString* const AccountBalanceKey = @"account.balance";
 #pragma mark Field delegate
 
 - (BOOL) textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
-    return textField.text.length + string.length < 7;
+    NSString* result = [textField.text stringByReplacingCharactersInRange:range withString:string];
+    return result.length < 7 || result.length < textField.text.length;
+}
+
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
+    if (self.valueDidChange) {
+        self.valueDidChange([self amount]);
+    }
+    return YES;
 }
 @end
