@@ -26,6 +26,11 @@
     [super setSelected:selected animated:animated];
 
     // Configure the view for the selected state
+    if (selected) {
+        self.backgroundColor = [UIColor colorWithRed:0.0 green:128.0 / 255.0 blue:255.0 / 255.0 alpha:0.2];
+    } else {
+        self.backgroundColor = [UIColor whiteColor];
+    }
 }
 
 @end
