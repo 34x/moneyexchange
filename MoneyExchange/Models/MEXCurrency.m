@@ -8,7 +8,7 @@
 
 #import "MEXCurrency.h"
 
-@interface MEXCurrency()
+@interface MEXCurrency() <NSCoding>
 @property (nonatomic, readwrite) NSString* ISOCode;
 @end
 
@@ -42,4 +42,13 @@
     return @"";
     
 }
+- (void)encodeWithCoder:(nonnull NSCoder *)aCoder {
+    [aCoder encodeObject:self.ISOCode forKey:@"ISOCode"];
+}
+
+- (nullable instancetype)initWithCoder:(nonnull NSCoder *)aDecoder {
+    MEXCurrency* currency = [MEXCurrency currencyWithISOCode:[aDecoder decodeObjectForKey:@"ISOCode"]];
+    return currency;
+}
+
 @end

@@ -19,6 +19,7 @@
 @property (nonatomic) NSMutableDictionary* ratesBuffer;
 @property (nonatomic) NSDictionary* rates;
 @property (nonatomic) NSString* defaultCurrencyCode;
+@property (nonatomic, readwrite) NSDate* lastUpdate;
 @end
 
 
@@ -28,6 +29,10 @@
     if (self) {
         self.updatePeriod = 30.0;
         self.defaultCurrencyCode = @"EUR";
+        
+        NSData* ratesData = [[NSUserDefaults standardUserDefaults] objectForKey:@"rates"];
+        self.rates = [NSKeyedUnarchiver unarchiveObjectWithData:ratesData];
+        self.lastUpdate = [[NSUserDefaults standardUserDefaults] objectForKey:@"lastUpdate"];
     }
     return self;
 }
@@ -89,6 +94,9 @@
                                           NSError* parseError;
                                           if(result) {
                                               weakSelf.rates = [NSDictionary dictionaryWithDictionary:weakSelf.ratesBuffer];
+                                              NSData* ratesData = [NSKeyedArchiver archivedDataWithRootObject:weakSelf.rates];
+                                              [[NSUserDefaults standardUserDefaults] setObject:ratesData forKey:@"rates"];
+                                              [[NSUserDefaults standardUserDefaults] setObject:[NSDate date] forKey:@"lastUpdate"];
                                           } else {
                                               parseError = [NSError errorWithDomain:@"MEXExchangeSource" code:1 userInfo:nil];
                                           }

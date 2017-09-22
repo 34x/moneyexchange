@@ -8,7 +8,7 @@
 
 #import "MEXExchangeRate.h"
 
-@interface MEXExchangeRate ()
+@interface MEXExchangeRate () <NSCoding>
 @property (nonatomic, readwrite) MEXCurrency* numerator;
 @property (nonatomic, readwrite) MEXCurrency* denominator;
 @property (nonatomic, readwrite) NSDecimalNumber* ratio;
@@ -38,6 +38,18 @@
 
 - (NSString*)description {
     return [NSString stringWithFormat:@"<MEXExchangeRate: %@ 1 = %@ %@>", self.numerator.ISOCode, self.denominator.ISOCode, self.ratio];
+}
+
+- (void)encodeWithCoder:(nonnull NSCoder *)aCoder {
+    [aCoder encodeObject:self.numerator forKey:@"numerator"];
+    [aCoder encodeObject:self.denominator forKey:@"denominator"];
+    [aCoder encodeObject:self.ratio forKey:@"ratio"];
+}
+
+- (nullable instancetype)initWithCoder:(nonnull NSCoder *)aDecoder {
+    return [MEXExchangeRate rateWith:[aDecoder decodeObjectForKey:@"numerator"]
+                                over:[aDecoder decodeObjectForKey:@"denominator"]
+                           withRatio:[aDecoder decodeObjectForKey:@"ratio"]];
 }
 
 @end

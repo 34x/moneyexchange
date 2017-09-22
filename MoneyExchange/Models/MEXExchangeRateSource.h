@@ -21,6 +21,7 @@
 @property (nonatomic, readonly) BOOL isReady;
 @property (nonatomic) id<MEXExchangeRateSourceDelegate> delegate;
 @property (nonatomic) NSTimeInterval updatePeriod;
+@property (nonatomic, readonly) NSDate* lastUpdate;
 
 - (MEXExchangeRate*) getRateFromCurrency:(MEXCurrency*)from toCurrency:(MEXCurrency*)to;
 - (MEXMoney*)exchangeFromCurrency:(MEXCurrency*)from toCurrency:(MEXCurrency*)to amount:(MEXMoney*)amount;

@@ -34,6 +34,7 @@
 
 @property (nonatomic) NSArray<MEXCurrency*>* currencies;
 @property (nonatomic) NSArray<MEXMoney*>* amounts;
+@property (nonatomic) UILabel* lastUpdateLabel;
 @end
 
 @implementation HomeViewController
@@ -52,6 +53,32 @@
                         [MEXCurrency currencyWithISOCode:@"GBP"],
                         [MEXCurrency currencyWithISOCode:@"USD"],
                         ];
+    
+    UIView* tableBackground = [UIView new];
+    self.lastUpdateLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 32.0, [UIScreen mainScreen].bounds.size.width,
+                                                                     42.0)];
+    
+    [tableBackground addSubview:self.lastUpdateLabel];
+    self.exchangeTable.backgroundView = tableBackground;
+    
+    [self updateLastUpdateLabel];
+    [self addObserver:self forKeyPath:@"rateSource.lastUpdate" options:NSKeyValueObservingOptionNew context:nil];
+}
+
+- (void)updateLastUpdateLabel {
+    UILabel* updateLabel = self.lastUpdateLabel;
+    if (self.rateSource.lastUpdate) {
+        updateLabel.text = [NSString stringWithFormat:@"Last updated at %@", self.rateSource.lastUpdate];
+    } else {
+        updateLabel.text = @"Updating...";
+    }
+    updateLabel.textAlignment = NSTextAlignmentCenter;
+    updateLabel.font = [UIFont systemFontOfSize:12.0];
+    updateLabel.textColor = [UIColor grayColor];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
+    [self updateLastUpdateLabel];
 }
 
 
