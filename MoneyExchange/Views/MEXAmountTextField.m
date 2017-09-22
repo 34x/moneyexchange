@@ -26,4 +26,12 @@
     }
 }
 
+- (BOOL)becomeFirstResponder {
+    BOOL result = [super becomeFirstResponder];
+    
+    self.selectedTextRange = [self textRangeFromPosition:self.beginningOfDocument toPosition:self.endOfDocument];
+    
+    return result;
+}
+
 @end
