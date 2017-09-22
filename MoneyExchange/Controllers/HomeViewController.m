@@ -12,10 +12,10 @@
 #import "MEXUserAccount.h"
 #import "MEXMoneyAccount.h"
 #import "MEXExchangeRateSource.h"
-#import <SpriteKit/SpriteKit.h>
+#import "MEXAmountTextField.h"
 
 
-@interface HomeViewController () <MEXExchangeRowViewDelegate, MEXExchangeRateSourceDelegate>
+@interface HomeViewController () <UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic) MEXExchangeRowView* lastUsedExchangeRow;
 
@@ -30,6 +30,7 @@
 @property (nonatomic) MEXMoney* lastSourceAmount;
 @property (nonatomic) MEXMoney* lastDestinationAmount;
 
+@property (nonatomic) NSArray* currencies;
 @end
 
 @implementation HomeViewController
@@ -41,7 +42,13 @@
     self.userAccount = [MEXUserAccount new];
     
     self.rateSource = [MEXExchangeRateSource new];
-    self.rateSource.delegate = self;
+    
+    self.currencies = @[
+                        [MEXCurrency currencyWithISOCode:@"EUR"],
+                        [MEXCurrency currencyWithISOCode:@"RUB"],
+                        [MEXCurrency currencyWithISOCode:@"GBP"],
+                        [MEXCurrency currencyWithISOCode:@"USD"],
+                        ];
 }
 
 
@@ -53,7 +60,6 @@
 
 - (void) resetForm {
     [self.lastUsedExchangeRow setAmount:[MEXMoney zero]];
-    [self exchangeView:self.lastUsedExchangeRow didChangeValue:[MEXMoney zero]];
 }
 
 #pragma mark source delegate
@@ -61,4 +67,43 @@
 - (void)rateSourceRatesDidLoad:(NSError *)error {
     
 }
+- (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
+    UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
+    
+    
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    UILabel* currencyLabel = [cell viewWithTag:1];
+    MEXAmountTextField* amountInput = [cell viewWithTag:2];
+    
+    MEXCurrency* currency = self.currencies[indexPath.row];
+    currencyLabel.text = currency.ISOCode;
+    amountInput.text = @"0.00";
+    amountInput.currency = currency;
+    
+    [amountInput addTarget:self action:@selector(amountDidChange:) forControlEvents:UIControlEventEditingChanged];
+    
+    // should be here to not interfer with getting subviews
+    cell.tag = indexPath.row;
+    return cell;
+}
+
+- (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return self.currencies.count;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell* cell = [tableView cellForRowAtIndexPath:indexPath];
+    
+    [cell.contentView.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([obj isKindOfClass:[MEXAmountTextField class]]) {
+            [obj becomeFirstResponder];
+            *stop = YES;
+        }
+    }];
+}
+
+- (void)amountDidChange:(MEXAmountTextField*)field {
+    NSLog(@"Field: %@ %@", field.amount, field.currency);
+}
+
 @end

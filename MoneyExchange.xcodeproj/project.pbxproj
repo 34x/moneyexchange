@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		50098B121F75822A0072941D /* MEXAmountTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 50098B111F75822A0072941D /* MEXAmountTextField.m */; };
 		502283F31F6939DB00A966B2 /* MEXUserAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 502283F21F6939DB00A966B2 /* MEXUserAccount.m */; };
 		502283F61F693EBF00A966B2 /* MEXExchange.m in Sources */ = {isa = PBXBuildFile; fileRef = 502283F51F693EBF00A966B2 /* MEXExchange.m */; };
 		502283F91F69403900A966B2 /* MEXMoneyAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 502283F81F69403900A966B2 /* MEXMoneyAccount.m */; };
@@ -41,6 +42,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		50098B101F75822A0072941D /* MEXAmountTextField.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MEXAmountTextField.h; sourceTree = "<group>"; };
+		50098B111F75822A0072941D /* MEXAmountTextField.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MEXAmountTextField.m; sourceTree = "<group>"; };
 		502283F11F6939DB00A966B2 /* MEXUserAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MEXUserAccount.h; sourceTree = "<group>"; };
 		502283F21F6939DB00A966B2 /* MEXUserAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MEXUserAccount.m; sourceTree = "<group>"; };
 		502283F41F693EBF00A966B2 /* MEXExchange.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MEXExchange.h; sourceTree = "<group>"; };
@@ -108,6 +111,8 @@
 				502284041F6963EC00A966B2 /* MEXExchangeRowView.m */,
 				502284381F6C210200A966B2 /* MEXExchangeView.h */,
 				502284391F6C210200A966B2 /* MEXExchangeView.m */,
+				50098B101F75822A0072941D /* MEXAmountTextField.h */,
+				50098B111F75822A0072941D /* MEXAmountTextField.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -324,6 +329,7 @@
 				5084239C1F6920A400DAD1D2 /* main.m in Sources */,
 				502283F61F693EBF00A966B2 /* MEXExchange.m in Sources */,
 				502283FF1F694FEE00A966B2 /* MEXCurrency.m in Sources */,
+				50098B121F75822A0072941D /* MEXAmountTextField.m in Sources */,
 				502283F91F69403900A966B2 /* MEXMoneyAccount.m in Sources */,
 				502283FC1F6945B300A966B2 /* MEXMoney.m in Sources */,
 			);

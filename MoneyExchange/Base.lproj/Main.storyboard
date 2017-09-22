@@ -6,6 +6,9 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -20,7 +23,57 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="uVQ-GO-kyq">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="651"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" id="Mpe-oI-lbt">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Mpe-oI-lbt" id="rQ1-hv-bVU">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textField opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="268-i4-PT0" customClass="MEXAmountTextField">
+                                                    <rect key="frame" x="179.5" y="8" width="187.5" height="28"/>
+                                                    <nil key="textColor"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="decimalPad"/>
+                                                </textField>
+                                                <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="EUR" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HXy-oL-6tR">
+                                                    <rect key="frame" x="8" y="8" width="171.5" height="27.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottomMargin" secondItem="HXy-oL-6tR" secondAttribute="bottom" id="5P0-UK-sG5"/>
+                                                <constraint firstItem="268-i4-PT0" firstAttribute="leadingMargin" secondItem="HXy-oL-6tR" secondAttribute="trailing" constant="8" id="Ak0-y6-QaO"/>
+                                                <constraint firstItem="HXy-oL-6tR" firstAttribute="leading" secondItem="rQ1-hv-bVU" secondAttribute="leadingMargin" id="BbL-UR-PgK"/>
+                                                <constraint firstItem="HXy-oL-6tR" firstAttribute="top" secondItem="rQ1-hv-bVU" secondAttribute="topMargin" id="QPg-GZ-Yh6"/>
+                                                <constraint firstItem="268-i4-PT0" firstAttribute="width" secondItem="rQ1-hv-bVU" secondAttribute="width" multiplier="0.5" id="WRy-a4-Wp5"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="268-i4-PT0" secondAttribute="bottom" id="X3T-K5-ylZ"/>
+                                                <constraint firstItem="268-i4-PT0" firstAttribute="top" secondItem="rQ1-hv-bVU" secondAttribute="topMargin" id="gMH-K9-dmT"/>
+                                                <constraint firstItem="268-i4-PT0" firstAttribute="trailing" secondItem="rQ1-hv-bVU" secondAttribute="trailingMargin" id="lLF-cM-jdx"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="wFn-eW-qCg"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="DtU-Jh-cNE"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" red="0.9802737832069397" green="0.98038023710250854" blue="0.98435753583908081" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="uVQ-GO-kyq" secondAttribute="bottom" constant="16" id="2WU-PT-15d"/>
+                            <constraint firstAttribute="trailing" secondItem="uVQ-GO-kyq" secondAttribute="trailing" id="IJL-jz-9Ot"/>
+                            <constraint firstItem="uVQ-GO-kyq" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="V53-uj-JrS"/>
+                            <constraint firstItem="uVQ-GO-kyq" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="zXS-65-zjk"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
