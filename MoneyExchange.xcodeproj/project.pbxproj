@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		50098B121F75822A0072941D /* MEXAmountTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 50098B111F75822A0072941D /* MEXAmountTextField.m */; };
+		50098B151F7588560072941D /* MEXExchangeTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 50098B141F7588560072941D /* MEXExchangeTableCell.m */; };
 		502283F31F6939DB00A966B2 /* MEXUserAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 502283F21F6939DB00A966B2 /* MEXUserAccount.m */; };
 		502283F61F693EBF00A966B2 /* MEXExchange.m in Sources */ = {isa = PBXBuildFile; fileRef = 502283F51F693EBF00A966B2 /* MEXExchange.m */; };
 		502283F91F69403900A966B2 /* MEXMoneyAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 502283F81F69403900A966B2 /* MEXMoneyAccount.m */; };
@@ -44,6 +45,8 @@
 /* Begin PBXFileReference section */
 		50098B101F75822A0072941D /* MEXAmountTextField.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MEXAmountTextField.h; sourceTree = "<group>"; };
 		50098B111F75822A0072941D /* MEXAmountTextField.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MEXAmountTextField.m; sourceTree = "<group>"; };
+		50098B131F7588560072941D /* MEXExchangeTableCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MEXExchangeTableCell.h; sourceTree = "<group>"; };
+		50098B141F7588560072941D /* MEXExchangeTableCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MEXExchangeTableCell.m; sourceTree = "<group>"; };
 		502283F11F6939DB00A966B2 /* MEXUserAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MEXUserAccount.h; sourceTree = "<group>"; };
 		502283F21F6939DB00A966B2 /* MEXUserAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MEXUserAccount.m; sourceTree = "<group>"; };
 		502283F41F693EBF00A966B2 /* MEXExchange.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MEXExchange.h; sourceTree = "<group>"; };
@@ -113,6 +116,8 @@
 				502284391F6C210200A966B2 /* MEXExchangeView.m */,
 				50098B101F75822A0072941D /* MEXAmountTextField.h */,
 				50098B111F75822A0072941D /* MEXAmountTextField.m */,
+				50098B131F7588560072941D /* MEXExchangeTableCell.h */,
+				50098B141F7588560072941D /* MEXExchangeTableCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -323,6 +328,7 @@
 				5084239F1F6920A400DAD1D2 /* AppDelegate.m in Sources */,
 				5022843A1F6C210200A966B2 /* MEXExchangeView.m in Sources */,
 				502284051F6963EC00A966B2 /* MEXExchangeRowView.m in Sources */,
+				50098B151F7588560072941D /* MEXExchangeTableCell.m in Sources */,
 				502283F31F6939DB00A966B2 /* MEXUserAccount.m in Sources */,
 				502284371F6C17CF00A966B2 /* InfinityScroll.m in Sources */,
 				5022840A1F6985EF00A966B2 /* MEXExchangeResult.m in Sources */,

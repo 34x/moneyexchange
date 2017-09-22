@@ -13,9 +13,11 @@
 #import "MEXMoneyAccount.h"
 #import "MEXExchangeRateSource.h"
 #import "MEXAmountTextField.h"
+#import "MEXExchangeTableCell.h"
 
 
 @interface HomeViewController () <UITableViewDelegate, UITableViewDataSource>
+@property (weak, nonatomic) IBOutlet UITableView *exchangeTable;
 
 @property (nonatomic) MEXExchangeRowView* lastUsedExchangeRow;
 
@@ -30,7 +32,8 @@
 @property (nonatomic) MEXMoney* lastSourceAmount;
 @property (nonatomic) MEXMoney* lastDestinationAmount;
 
-@property (nonatomic) NSArray* currencies;
+@property (nonatomic) NSArray<MEXCurrency*>* currencies;
+@property (nonatomic) NSArray<MEXMoney*>* amounts;
 @end
 
 @implementation HomeViewController
@@ -68,22 +71,25 @@
     
 }
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
-    UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
-    
+    MEXExchangeTableCell* cell = (MEXExchangeTableCell*)[tableView dequeueReusableCellWithIdentifier:@"cell"];
+    cell.tag = indexPath.row;
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    UILabel* currencyLabel = [cell viewWithTag:1];
-    MEXAmountTextField* amountInput = [cell viewWithTag:2];
+    UILabel* currencyLabel = cell.currencyLabel;
+    MEXAmountTextField* amountInput = cell.amountField;
     
     MEXCurrency* currency = self.currencies[indexPath.row];
     currencyLabel.text = currency.ISOCode;
-    amountInput.text = @"0.00";
+    
+    if (self.amounts.count > indexPath.row) {
+        amountInput.text = [self.amounts[indexPath.row] stringValue];
+    } else {
+        amountInput.text = @"";
+    }
     amountInput.currency = currency;
     
     [amountInput addTarget:self action:@selector(amountDidChange:) forControlEvents:UIControlEventEditingChanged];
     
-    // should be here to not interfer with getting subviews
-    cell.tag = indexPath.row;
     return cell;
 }
 
@@ -103,7 +109,24 @@
 }
 
 - (void)amountDidChange:(MEXAmountTextField*)field {
-    NSLog(@"Field: %@ %@", field.amount, field.currency);
+    
+    MEXCurrency* currentCurrency = field.currency;
+    MEXMoney* currentAmount = field.amount;
+    __block NSMutableArray* sections = [NSMutableArray new];
+    NSMutableArray* amounts = [NSMutableArray new];
+    
+    [self.currencies enumerateObjectsUsingBlock:^(MEXCurrency* _Nonnull currency, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([currentCurrency isEqualToCurrency:currency]) {
+            [amounts addObject:currentAmount];
+            return;
+        }
+        
+        NSIndexPath* path = [NSIndexPath indexPathForRow:idx inSection:0];
+        [sections addObject:path];
+        [amounts addObject:[self.rateSource exchangeFromCurrency:currentCurrency toCurrency:currency amount:currentAmount]];
+    }];
+    self.amounts = amounts;
+    [self.exchangeTable reloadRowsAtIndexPaths:sections withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 @end

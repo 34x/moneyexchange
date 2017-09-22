@@ -10,6 +10,7 @@
 #import "MEXExchangeRateSource.h"
 #import "MEXCurrency.h"
 #import "MEXExchangeRate.h"
+#import "MEXExchange.h"
 
 @interface MEXExchangeRateSource() <NSXMLParserDelegate>
 @property (nonatomic, readwrite) BOOL isReady;
@@ -133,6 +134,11 @@
                               decimalNumberByMultiplyingBy:toRate.ratio];
     
     return [MEXExchangeRate rateWith:from over:to withRatio:ratio];
+}
+
+- (MEXMoney*)exchangeFromCurrency:(MEXCurrency *)from toCurrency:(MEXCurrency *)to amount:(MEXMoney *)amount {
+    MEXExchangeRate* rate = [self getRateFromCurrency:from toCurrency:to];
+    return [amount multiplyBy:rate.ratio];
 }
 
 #pragma mark XML parser delegate

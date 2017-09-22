@@ -23,4 +23,5 @@
 @property (nonatomic) NSTimeInterval updatePeriod;
 
 - (MEXExchangeRate*) getRateFromCurrency:(MEXCurrency*)from toCurrency:(MEXCurrency*)to;
+- (MEXMoney*)exchangeFromCurrency:(MEXCurrency*)from toCurrency:(MEXCurrency*)to amount:(MEXMoney*)amount;
 @end
