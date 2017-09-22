@@ -99,6 +99,51 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		50098B0C1F756BA00072941D /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				502284351F6C17CF00A966B2 /* InfinityScroll.h */,
+				502284361F6C17CF00A966B2 /* InfinityScroll.m */,
+				502284031F6963EC00A966B2 /* MEXExchangeRowView.h */,
+				502284041F6963EC00A966B2 /* MEXExchangeRowView.m */,
+				502284381F6C210200A966B2 /* MEXExchangeView.h */,
+				502284391F6C210200A966B2 /* MEXExchangeView.m */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		50098B0E1F756BB00072941D /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				508423A01F6920A400DAD1D2 /* HomeViewController.h */,
+				508423A11F6920A400DAD1D2 /* HomeViewController.m */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		50098B0F1F756BBB0072941D /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				502283FD1F694FEE00A966B2 /* MEXCurrency.h */,
+				502283FE1F694FEE00A966B2 /* MEXCurrency.m */,
+				502283F41F693EBF00A966B2 /* MEXExchange.h */,
+				502283F51F693EBF00A966B2 /* MEXExchange.m */,
+				5022840B1F69BA5700A966B2 /* MEXExchangeRate.h */,
+				5022840C1F69BA5700A966B2 /* MEXExchangeRate.m */,
+				5022840E1F6A8ED200A966B2 /* MEXExchangeRateSource.h */,
+				5022840F1F6A8ED200A966B2 /* MEXExchangeRateSource.m */,
+				502284081F6985EF00A966B2 /* MEXExchangeResult.h */,
+				502284091F6985EF00A966B2 /* MEXExchangeResult.m */,
+				502283FA1F6945B300A966B2 /* MEXMoney.h */,
+				502283FB1F6945B300A966B2 /* MEXMoney.m */,
+				502283F71F69403900A966B2 /* MEXMoneyAccount.h */,
+				502283F81F69403900A966B2 /* MEXMoneyAccount.m */,
+				502283F11F6939DB00A966B2 /* MEXUserAccount.h */,
+				502283F21F6939DB00A966B2 /* MEXUserAccount.m */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		504F310D1F6ED4F4001DCA27 /* MoneyExchangeTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -130,34 +175,13 @@
 		508423991F6920A400DAD1D2 /* MoneyExchange */ = {
 			isa = PBXGroup;
 			children = (
+				50098B0F1F756BBB0072941D /* Models */,
+				50098B0E1F756BB00072941D /* Controllers */,
+				50098B0C1F756BA00072941D /* Views */,
 				5070CC371F6FB8E000CC74A9 /* README.md */,
 				50DFF5B31F6F1BC2008D619C /* Success.sks */,
 				5084239D1F6920A400DAD1D2 /* AppDelegate.h */,
 				5084239E1F6920A400DAD1D2 /* AppDelegate.m */,
-				502284351F6C17CF00A966B2 /* InfinityScroll.h */,
-				502284361F6C17CF00A966B2 /* InfinityScroll.m */,
-				502283FD1F694FEE00A966B2 /* MEXCurrency.h */,
-				502283FE1F694FEE00A966B2 /* MEXCurrency.m */,
-				502283F41F693EBF00A966B2 /* MEXExchange.h */,
-				502283F51F693EBF00A966B2 /* MEXExchange.m */,
-				5022840B1F69BA5700A966B2 /* MEXExchangeRate.h */,
-				5022840C1F69BA5700A966B2 /* MEXExchangeRate.m */,
-				5022840E1F6A8ED200A966B2 /* MEXExchangeRateSource.h */,
-				5022840F1F6A8ED200A966B2 /* MEXExchangeRateSource.m */,
-				502284081F6985EF00A966B2 /* MEXExchangeResult.h */,
-				502284091F6985EF00A966B2 /* MEXExchangeResult.m */,
-				502284031F6963EC00A966B2 /* MEXExchangeRowView.h */,
-				502284041F6963EC00A966B2 /* MEXExchangeRowView.m */,
-				502284381F6C210200A966B2 /* MEXExchangeView.h */,
-				502284391F6C210200A966B2 /* MEXExchangeView.m */,
-				502283FA1F6945B300A966B2 /* MEXMoney.h */,
-				502283FB1F6945B300A966B2 /* MEXMoney.m */,
-				502283F71F69403900A966B2 /* MEXMoneyAccount.h */,
-				502283F81F69403900A966B2 /* MEXMoneyAccount.m */,
-				502283F11F6939DB00A966B2 /* MEXUserAccount.h */,
-				502283F21F6939DB00A966B2 /* MEXUserAccount.m */,
-				508423A01F6920A400DAD1D2 /* HomeViewController.h */,
-				508423A11F6920A400DAD1D2 /* HomeViewController.m */,
 				508423A31F6920A400DAD1D2 /* Main.storyboard */,
 				508423A61F6920A400DAD1D2 /* Assets.xcassets */,
 				508423A81F6920A400DAD1D2 /* LaunchScreen.storyboard */,
