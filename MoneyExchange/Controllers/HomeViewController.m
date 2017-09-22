@@ -16,10 +16,6 @@
 
 
 @interface HomeViewController () <MEXExchangeRowViewDelegate, MEXExchangeRateSourceDelegate>
-@property (weak, nonatomic) IBOutlet MEXExchangeRowView *exchangeRowSource;
-@property (weak, nonatomic) IBOutlet MEXExchangeRowView *exchangeRowDestination;
-@property (weak, nonatomic) IBOutlet UIButton *exchangeButton;
-@property (weak, nonatomic) IBOutlet UIView *loadingSplash;
 
 @property (nonatomic) MEXExchangeRowView* lastUsedExchangeRow;
 
@@ -42,26 +38,10 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
-    self.exchangeRowSource.delegate = self;
-    self.exchangeRowDestination.delegate = self;
-    self.exchangeRowSource.type = MEXExchangeViewTypeSource;
-    self.exchangeRowDestination.type = MEXExchangeViewTypeDestination;
-    
     self.userAccount = [MEXUserAccount new];
     
     self.rateSource = [MEXExchangeRateSource new];
     self.rateSource.delegate = self;
-    
-    NSArray* accounts = @[
-                          [MEXMoneyAccount accountWithCurrency:[MEXCurrency currencyWithISOCode:@"EUR"] andBalance:[MEXMoney fromString:@"100.00"]],
-                          [MEXMoneyAccount accountWithCurrency:[MEXCurrency currencyWithISOCode:@"GBP"] andBalance:[MEXMoney fromString:@"100.00"]],
-                          [MEXMoneyAccount accountWithCurrency:[MEXCurrency currencyWithISOCode:@"USD"] andBalance:[MEXMoney fromString:@"100.00"]],
-                          ];
-    
-    self.exchangeRowSource.accounts = accounts;
-    self.exchangeRowDestination.accounts = accounts;
-
-    [self setOverallScreenEnable:NO withMessage:NSLocalizedString(@"Loading rates", @"ExchangeScreen.exchangeButton")];
 }
 
 
@@ -70,119 +50,6 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-    [self.exchangeRowSource becomeFirstResponder];
-}
-
-- (void)exchangeView:(MEXExchangeRowView *)view didChangeValue:(MEXMoney *)value {
-    self.lastUsedExchangeRow = view;
-    MEXExchangeRowView* target = self.exchangeRowDestination;
-    MEXExchangeAmountType exchangeType = MEXExchangeAmountInSourceCurrency;
-    
-    if (view == self.exchangeRowDestination) {
-        target = self.exchangeRowSource;
-        exchangeType = MEXExchangeAmountInDestinationCurrency;
-    }
-    
-    MEXMoneyAccount* sourceAccount = self.sourceView.account;
-    MEXMoneyAccount* destinationAccount = self.destinationView.account;
-    
-    MEXExchangeRate* rate = [self.rateSource getRateFromCurrency:sourceAccount.currency
-                                                      toCurrency:destinationAccount.currency];
-    
-    if (!rate) {
-        [self setExchangeEnable:NO andMessage:NSLocalizedString(@"No exchange rate", @"ExchangeScreen.exchangeButton")];
-        return;
-    }
-    
-    [self.exchangeRowDestination setRate:rate];
-    MEXExchange* exchange = [MEXExchange exchangeFrom:sourceAccount
-                                                   to:destinationAccount
-                                               amount:value
-                                                 rate:rate
-                                           amountType:exchangeType];
-    
-    [self.userAccount rollback:^(NSError* rollbackError) {
-        [self.userAccount exchange:exchange completion:^(MEXExchangeResult *result, NSError *error) {
-            // Just interface update
-            [target setAmount:exchange.result];
-            if (error) {
-                [self setExchangeEnable:NO andMessage:error.localizedDescription];
-                return;
-            }
-            
-            [self setExchangeEnable:YES andMessage:nil];
-            
-        }];
-        
-    }];
-}
-
-
-- (void)exchangeView:(MEXExchangeRowView *)view didChangeExchangeView:(MEXExchangeView *)exchangeView {
-    if (view == self.exchangeRowSource) {
-        self.sourceView = exchangeView;
-    } else {
-        self.destinationView = exchangeView;
-    }
-    
-    if (self.lastUsedExchangeRow == self.exchangeRowSource) {
-        [self exchangeView:self.lastUsedExchangeRow didChangeValue:self.sourceView.amount];
-    } else {
-        [self exchangeView:self.lastUsedExchangeRow didChangeValue:self.destinationView.amount];
-    }
-    
-}
-
-- (void)setOverallScreenEnable:(BOOL)enable withMessage:(NSString*)message{
-    if (self.loadingSplash.isHidden == enable) {
-        return;
-    }
-    
-    self.loadingSplash.alpha = enable ? 0.8 : 0;
-    
-    [self.loadingSplash setHidden:NO];
-    [UIView animateWithDuration:0.1
-                     animations:^{
-                         self.loadingSplash.alpha = enable ? 0 : 0.8;
-                     }
-                     completion:^(BOOL finished) {
-                         [self.loadingSplash setHidden: enable ? YES : NO];
-                     }];
-    self.exchangeRowSource.userInteractionEnabled = enable;
-    self.exchangeRowDestination.userInteractionEnabled = enable;
-    
-    [self setExchangeEnable:enable andMessage:message];
-}
-
-- (void)setExchangeEnable:(BOOL)enable andMessage:(NSString*)message {
-    
-    if (!message) {
-        message = NSLocalizedString(enable ? @"Exchange" : @"Exchange not available", @"ExchangeScreen.exchangeButton");
-    }
-    
-    self.exchangeButton.enabled = enable;
-    [self.exchangeButton setTitle:message forState:UIControlStateNormal];
-    
-    self.exchangeButton.layer.borderColor = [self.exchangeButton currentTitleColor].CGColor;
-    self.exchangeButton.layer.borderWidth = 1.0;
-    self.exchangeButton.layer.cornerRadius = 12.0;
-    self.exchangeButton.layer.masksToBounds = YES;
-}
-
-- (IBAction)exchangeAction:(id)sender {
-    [self.userAccount commit:^(NSError *error) {
-//        [self playSuccessAnimation];
-        [self resetForm];
-    }];
-}
-
-- (IBAction)cancelAction:(id)sender {
-    [self.userAccount rollback:^(NSError *error) {
-        [self resetForm];
-    }];
-}
 
 - (void) resetForm {
     [self.lastUsedExchangeRow setAmount:[MEXMoney zero]];
@@ -192,49 +59,6 @@
 #pragma mark source delegate
 
 - (void)rateSourceRatesDidLoad:(NSError *)error {
-    if (!error) {
-        
-        [self setOverallScreenEnable:YES withMessage:nil];
-        
-        MEXMoney* amount;
-        if (self.lastUsedExchangeRow == self.exchangeRowSource) {
-            amount = self.sourceView.amount;
-        } else {
-            amount = self.destinationView.amount;
-        }
-        
-        [self exchangeView:self.lastUsedExchangeRow didChangeValue:amount];
-        
-    } else {
-        [self setOverallScreenEnable:NO withMessage:NSLocalizedString(@"Error while getting currency rates", @"ExchangeScreen.exchangeButton")];
-    }
-}
-
-- (void)playSuccessAnimation {
-    SKView* skview = [[SKView alloc] initWithFrame:[UIScreen mainScreen].bounds];
-    skview.backgroundColor = [UIColor colorWithWhite:0 alpha:0];
-    SKScene* scene = [[SKScene alloc] initWithSize:[UIScreen mainScreen].bounds.size];
-    scene.backgroundColor = [UIColor colorWithWhite:0 alpha:0];
     
-    NSString *emitterPath = [[NSBundle mainBundle] pathForResource:@"Success" ofType:@"sks"];
-    SKEmitterNode *emitter = [NSKeyedUnarchiver unarchiveObjectWithFile:emitterPath];
-    emitter.position = [skview convertPoint:self.exchangeRowDestination.center toScene:scene];
-    [scene addChild:emitter];
-    [skview presentScene:scene];
-    skview.center = self.exchangeButton.center;
-    
-    [self.view addSubview:skview];
-    
-    emitter.physicsBody = [SKPhysicsBody new];
-    SKAction* move = [SKAction moveBy:CGVectorMake(0, 100) duration:0.8];
-    [emitter runAction:move];
-    
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.7 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [UIView animateWithDuration:0.4 animations:^{
-            skview.alpha = 0.0;
-        } completion:^(BOOL finished) {
-            [skview removeFromSuperview];
-        }];
-    });
 }
 @end
