@@ -35,6 +35,7 @@
 @property (nonatomic) NSArray<MEXCurrency*>* currencies;
 @property (nonatomic) NSArray<MEXMoney*>* amounts;
 @property (nonatomic) UILabel* lastUpdateLabel;
+@property (nonatomic) NSDateFormatter* dateFormatter;
 @end
 
 @implementation HomeViewController
@@ -54,6 +55,11 @@
                         [MEXCurrency currencyWithISOCode:@"USD"],
                         ];
     
+    self.dateFormatter = [NSDateFormatter new];
+    self.dateFormatter.dateStyle = NSDateFormatterShortStyle;
+    self.dateFormatter.timeStyle = NSDateFormatterShortStyle;
+    [self.dateFormatter setLocale: [NSLocale currentLocale]];
+    
     UIView* tableBackground = [UIView new];
     self.lastUpdateLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 32.0, [UIScreen mainScreen].bounds.size.width,
                                                                      42.0)];
@@ -68,7 +74,7 @@
 - (void)updateLastUpdateLabel {
     UILabel* updateLabel = self.lastUpdateLabel;
     if (self.rateSource.lastUpdate) {
-        updateLabel.text = [NSString stringWithFormat:@"Last updated at %@", self.rateSource.lastUpdate];
+        updateLabel.text = [NSString stringWithFormat:@"Last updated at %@", [self.dateFormatter stringFromDate:self.rateSource.lastUpdate]];
     } else {
         updateLabel.text = @"Updating...";
     }
@@ -154,6 +160,14 @@
     }];
     self.amounts = amounts;
     [self.exchangeTable reloadRowsAtIndexPaths:sections withRowAnimation:UITableViewRowAnimationAutomatic];
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    if (scrollView.contentOffset.y < -20) {
+        self.lastUpdateLabel.alpha = 1.0;
+    } else {
+        self.lastUpdateLabel.alpha = 0.0;
+    }
 }
 
 @end

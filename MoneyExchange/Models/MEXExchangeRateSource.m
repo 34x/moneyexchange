@@ -94,9 +94,10 @@
                                           NSError* parseError;
                                           if(result) {
                                               weakSelf.rates = [NSDictionary dictionaryWithDictionary:weakSelf.ratesBuffer];
+                                              weakSelf.lastUpdate = [NSDate date];
                                               NSData* ratesData = [NSKeyedArchiver archivedDataWithRootObject:weakSelf.rates];
                                               [[NSUserDefaults standardUserDefaults] setObject:ratesData forKey:@"rates"];
-                                              [[NSUserDefaults standardUserDefaults] setObject:[NSDate date] forKey:@"lastUpdate"];
+                                              [[NSUserDefaults standardUserDefaults] setObject:weakSelf.lastUpdate forKey:@"lastUpdate"];
                                           } else {
                                               parseError = [NSError errorWithDomain:@"MEXExchangeSource" code:1 userInfo:nil];
                                           }
