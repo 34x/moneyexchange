@@ -69,6 +69,14 @@
     
     [self updateLastUpdateLabel];
     [self addObserver:self forKeyPath:@"rateSource.lastUpdate" options:NSKeyValueObservingOptionNew context:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWasShown:)
+                                                 name:UIKeyboardDidShowNotification object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillBeHidden:)
+                                                 name:UIKeyboardWillHideNotification object:nil];
 }
 
 - (void)updateLastUpdateLabel {
@@ -168,6 +176,24 @@
     } else {
         self.lastUpdateLabel.alpha = 0.0;
     }
+}
+
+- (void)keyboardWasShown:(NSNotification*)aNotification
+{
+    NSDictionary* info = [aNotification userInfo];
+    CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
+    
+    UIEdgeInsets contentInsets = UIEdgeInsetsMake(0.0, 0.0, kbSize.height, 0.0);
+    self.exchangeTable.contentInset = contentInsets;
+    self.exchangeTable.scrollIndicatorInsets = contentInsets;
+}
+
+// Called when the UIKeyboardWillHideNotification is sent
+- (void)keyboardWillBeHidden:(NSNotification*)aNotification
+{
+    UIEdgeInsets contentInsets = UIEdgeInsetsZero;
+    self.exchangeTable.contentInset = contentInsets;
+    self.exchangeTable.scrollIndicatorInsets = contentInsets;
 }
 
 @end
