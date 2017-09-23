@@ -113,6 +113,8 @@
 }
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     MEXExchangeTableCell* cell = (MEXExchangeTableCell*)[tableView dequeueReusableCellWithIdentifier:@"cell"];
+    cell.parentTable = tableView;
+    cell.indexPath = indexPath;
     cell.tag = indexPath.row;
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;

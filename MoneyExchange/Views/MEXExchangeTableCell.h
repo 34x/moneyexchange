@@ -12,4 +12,6 @@
 @interface MEXExchangeTableCell : UITableViewCell
 @property (nonatomic, readonly) MEXAmountTextField* amountField;
 @property (nonatomic, readonly) UILabel* currencyLabel;
+@property (nonatomic, weak) UITableView* parentTable;
+@property (nonatomic, weak) NSIndexPath* indexPath;
 @end
