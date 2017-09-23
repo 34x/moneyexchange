@@ -120,7 +120,7 @@
     MEXAmountTextField* amountInput = cell.amountField;
     
     MEXCurrency* currency = self.currencies[indexPath.row];
-    currencyLabel.text = currency.ISOCode;
+    currencyLabel.text = [NSString stringWithFormat:@"%@ %@ %@", currency.flag, currency.ISOCode, currency.sign];
     
     if (self.amounts.count > indexPath.row) {
         amountInput.text = [self.amounts[indexPath.row] stringValue];

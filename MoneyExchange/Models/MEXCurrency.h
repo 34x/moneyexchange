@@ -12,6 +12,7 @@
 /* Currency ISO 4217 code */
 @property (nonatomic, readonly) NSString* ISOCode;
 @property (nonatomic, readonly) NSString* sign;
+@property (nonatomic, readonly) NSString* flag;
 
 + (instancetype)currencyWithISOCode:(NSString*)code;
 

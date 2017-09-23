@@ -31,17 +31,31 @@
 }
 
 - (NSString*) sign {
-    if ([@"EUR" isEqualToString:self.ISOCode]) {
-        return @"€";
-    } else if ([@"GBP" isEqualToString:self.ISOCode]) {
-        return @"£";
-    } else if ([@"USD" isEqualToString:self.ISOCode]) {
-        return @"$";
+    return [[MEXCurrency currencyDataForCode:self.ISOCode] objectForKey:@"sign"];
+}
+
+- (NSString*)flag {
+    return [[MEXCurrency currencyDataForCode:self.ISOCode] objectForKey:@"flag"];
+}
+
++ (NSDictionary*)currenciesData {
+    return @{
+             @"EUR": @{@"sign": @"€", @"flag": @"🇪🇺"},
+             @"RUB": @{@"sign": @"₽", @"flag": @"🇷🇺"},
+             @"GBP": @{@"sign": @"£", @"flag": @"🇬🇧"},
+             @"USD": @{@"sign": @"$", @"flag": @"🇺🇸"},
+             };
+}
+
++ (NSDictionary*)currencyDataForCode:(NSString*)code {
+    NSDictionary* data = [[self currenciesData] objectForKey:code];
+    if (data) {
+        return data;
     }
     
-    return @"";
-    
+    return @{@"sign": @"", @"flag": @""};
 }
+
 - (void)encodeWithCoder:(nonnull NSCoder *)aCoder {
     [aCoder encodeObject:self.ISOCode forKey:@"ISOCode"];
 }
