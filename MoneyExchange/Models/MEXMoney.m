@@ -16,7 +16,7 @@
 + (instancetype) fromString:(NSString *)value {
     
     MEXMoney* money = [MEXMoney new];
-    
+    value = [value stringByReplacingOccurrencesOfString:@"," withString:@"."];
     money.value = [NSDecimalNumber decimalNumberWithString:value];
     
     if ([money.value isEqualToNumber:[NSDecimalNumber notANumber]]) {
