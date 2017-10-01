@@ -16,7 +16,7 @@
 #import "MEXExchangeTableCell.h"
 
 
-@interface HomeViewController () <UITableViewDelegate, UITableViewDataSource>
+@interface HomeViewController () <UITableViewDelegate, UITableViewDataSource, MEXExchangeRateSourceDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *exchangeTable;
 
 @property (nonatomic) MEXExchangeRowView* lastUsedExchangeRow;
@@ -47,6 +47,7 @@
     self.userAccount = [MEXUserAccount new];
     
     self.rateSource = [MEXExchangeRateSource new];
+    self.rateSource.delegate = self;
     
     self.currencies = @[
                         [MEXCurrency currencyWithISOCode:@"EUR"],
@@ -109,8 +110,16 @@
 #pragma mark source delegate
 
 - (void)rateSourceRatesDidLoad:(NSError *)error {
-
+    NSIndexPath* selectedPath = self.exchangeTable.indexPathForSelectedRow;
+    MEXExchangeTableCell* cell = [self.exchangeTable cellForRowAtIndexPath:selectedPath];
+    if (nil == cell) {
+        return;
+    }
+    [self amountDidChange:cell.amountField];
 }
+
+#pragma mark table view delegate
+
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     MEXExchangeTableCell* cell = (MEXExchangeTableCell*)[tableView dequeueReusableCellWithIdentifier:@"cell"];
     cell.parentTable = tableView;
@@ -142,12 +151,6 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     MEXExchangeTableCell* cell = [tableView cellForRowAtIndexPath:indexPath];
     [cell becomeFirstResponder];
-//    [cell.contentView.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-//        if ([obj isKindOfClass:[MEXAmountTextField class]]) {
-//            [obj becomeFirstResponder];
-//            *stop = YES;
-//        }
-//    }];
 }
 
 - (void)amountDidChange:(MEXAmountTextField*)field {
@@ -165,11 +168,14 @@
         
         NSIndexPath* path = [NSIndexPath indexPathForRow:idx inSection:0];
         [sections addObject:path];
-        [amounts addObject:[self.rateSource exchangeFromCurrency:currentCurrency toCurrency:currency amount:currentAmount]];
+        MEXMoney* amount = [self.rateSource exchangeFromCurrency:currentCurrency toCurrency:currency amount:currentAmount];
+        [amounts addObject:amount];
     }];
     self.amounts = amounts;
     [self.exchangeTable reloadRowsAtIndexPaths:sections withRowAnimation:UITableViewRowAnimationAutomatic];
 }
+
+#pragma mark scroll delegate
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     if (scrollView.contentOffset.y < -20) {
@@ -178,6 +184,8 @@
         self.lastUpdateLabel.alpha = 0.0;
     }
 }
+
+#pragma mark keyboard handling
 
 - (void)keyboardWasShown:(NSNotification*)aNotification
 {

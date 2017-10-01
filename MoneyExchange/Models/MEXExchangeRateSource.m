@@ -27,7 +27,7 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-        self.updatePeriod = 30.0;
+        self.updatePeriod = 60.0;
         self.defaultCurrencyCode = @"EUR";
         
         NSData* ratesData = [[NSUserDefaults standardUserDefaults] objectForKey:@"rates"];
