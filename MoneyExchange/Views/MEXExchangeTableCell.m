@@ -7,10 +7,13 @@
 //
 
 #import "MEXExchangeTableCell.h"
+#import "MEXCurrency.h"
 
 @interface MEXExchangeTableCell() <UITextFieldDelegate>
 @property (nonatomic, readwrite) MEXAmountTextField* amountField;
 @property (nonatomic, readwrite) UILabel* currencyLabel;
+@property (nonatomic, readwrite) UILabel* amountLabel;
+@property (nonatomic, readwrite) MEXCurrency* currency;
 @end
 
 @implementation MEXExchangeTableCell
@@ -20,7 +23,13 @@
     // Initialization code
     self.currencyLabel = [self viewWithTag:1];
     self.amountField = [self viewWithTag:2];
+    self.amountLabel = [self viewWithTag:3];
+    
     self.amountField.delegate = self;
+    [self.amountLabel setHidden:NO];
+    [self.amountField setHidden:YES];
+    
+    [self.amountField addTarget:self action:@selector(amountDidChange:) forControlEvents:UIControlEventEditingChanged];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -36,6 +45,39 @@
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
     [self.parentTable selectRowAtIndexPath:self.indexPath animated:YES scrollPosition:UITableViewScrollPositionNone];
+}
+
+- (void)setAmount:(MEXMoney *)amount {
+    self.amountField.text = [amount stringValue];
+    [self displayFormattedValue];
+}
+
+- (void)setCurrency:(MEXCurrency *)currency {
+    self.amountField.currency = currency;
+    _currency = currency;
+    
+    self.currencyLabel.text = [NSString stringWithFormat:@"%@ %@", currency.flag, currency.ISOCode];
+}
+
+- (BOOL)becomeFirstResponder {
+    return [self.amountField becomeFirstResponder];
+}
+
+- (void)amountDidChange:(UITextField*)field {
+    [self displayFormattedValue];
+}
+
+- (void)displayFormattedValue {
+    MEXMoney* amount = self.amountField.amount;
+    NSNumberFormatter* formatter = [NSNumberFormatter new];
+    formatter.numberStyle = NSNumberFormatterCurrencyStyle;
+//    [formatter setCurrencyCode:self.currency.ISOCode];
+    [formatter setCurrencySymbol:self.currency.sign];
+    [formatter setLocale:[NSLocale currentLocale]];
+    
+    NSString* formatted = [formatter stringFromNumber:amount.value];
+    
+    self.amountLabel.text = formatted;
 }
 
 @end

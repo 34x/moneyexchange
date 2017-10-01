@@ -109,7 +109,7 @@
 #pragma mark source delegate
 
 - (void)rateSourceRatesDidLoad:(NSError *)error {
-    
+
 }
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     MEXExchangeTableCell* cell = (MEXExchangeTableCell*)[tableView dequeueReusableCellWithIdentifier:@"cell"];
@@ -118,16 +118,15 @@
     cell.tag = indexPath.row;
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    UILabel* currencyLabel = cell.currencyLabel;
     MEXAmountTextField* amountInput = cell.amountField;
     
     MEXCurrency* currency = self.currencies[indexPath.row];
-    currencyLabel.text = [NSString stringWithFormat:@"%@ %@ %@", currency.flag, currency.ISOCode, currency.sign];
+    [cell setCurrency:currency];
     
     if (self.amounts.count > indexPath.row) {
-        amountInput.text = [self.amounts[indexPath.row] stringValue];
+        [cell setAmount:self.amounts[indexPath.row]];
     } else {
-        amountInput.text = @"";
+        [cell setAmount:[MEXMoney zero]];
     }
     amountInput.currency = currency;
     
@@ -141,14 +140,14 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell* cell = [tableView cellForRowAtIndexPath:indexPath];
-    
-    [cell.contentView.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        if ([obj isKindOfClass:[MEXAmountTextField class]]) {
-            [obj becomeFirstResponder];
-            *stop = YES;
-        }
-    }];
+    MEXExchangeTableCell* cell = [tableView cellForRowAtIndexPath:indexPath];
+    [cell becomeFirstResponder];
+//    [cell.contentView.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+//        if ([obj isKindOfClass:[MEXAmountTextField class]]) {
+//            [obj becomeFirstResponder];
+//            *stop = YES;
+//        }
+//    }];
 }
 
 - (void)amountDidChange:(MEXAmountTextField*)field {
